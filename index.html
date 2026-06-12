@@ -929,6 +929,45 @@
   }
   .ps-stripe { height: 3px; background: #4ade80; }
   .ps-bot-stripe { height: 2px; background: #1a2e1a; }
+  .ps-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.95);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+    padding: 24px;
+  }
+  .ps-lightbox.open { opacity: 1; pointer-events: all; }
+  .ps-lightbox img {
+    max-height: 90vh;
+    max-width: 90vw;
+    object-fit: contain;
+    border-radius: 12px;
+    transform: scale(0.94);
+    transition: transform 0.28s cubic-bezier(.22,.9,.36,1);
+  }
+  .ps-lightbox.open img { transform: scale(1); }
+  .ps-lightbox-close {
+    position: fixed;
+    top: 20px; right: 24px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #888;
+    width: 34px; height: 34px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.15s;
+  }
+  .ps-lightbox-close:hover { color: #f0f0f0; }
+  .ps-carousel-item { cursor: zoom-in; }
   .ps-head {
     padding: 18px 22px 15px;
     display: flex;
@@ -1321,6 +1360,12 @@
   </div>
 </section>
 
+<!-- PLANTA SANO LIGHTBOX -->
+<div class="ps-lightbox" id="ps-lightbox">
+  <button class="ps-lightbox-close" id="ps-lightbox-close" aria-label="Close">✕</button>
+  <img id="ps-lightbox-img" src="" alt="">
+</div>
+
 <!-- PLANTA SANO MODAL -->
 <div class="ps-overlay" id="ps-overlay" role="dialog" aria-modal="true" aria-label="Planta Sano">
   <div class="ps-modal">
@@ -1583,6 +1628,21 @@
     document.body.style.overflow = '';
     psVideo.pause();
   }
+
+  const psLightbox = document.getElementById('ps-lightbox');
+  const psLightboxImg = document.getElementById('ps-lightbox-img');
+  const psLightboxClose = document.getElementById('ps-lightbox-close');
+
+  psOverlay.querySelectorAll('.ps-carousel-item img').forEach(img => {
+    img.addEventListener('click', () => {
+      psLightboxImg.src = img.src;
+      psLightboxImg.alt = img.alt;
+      psLightbox.classList.add('open');
+    });
+  });
+  psLightboxClose.addEventListener('click', () => psLightbox.classList.remove('open'));
+  psLightbox.addEventListener('click', e => { if (e.target === psLightbox) psLightbox.classList.remove('open'); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') psLightbox.classList.remove('open'); });
 
   psRow.addEventListener('click', openPS);
   psRow.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openPS(); });
