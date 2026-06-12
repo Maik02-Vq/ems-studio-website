@@ -891,6 +891,257 @@
   }
   .jj-cta:hover { background: #88ff44; }
 
+  /* PLANTA SANO MODAL */
+  .ps-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    pointer-events: none;
+    transition: background 0.3s;
+    padding: 24px;
+  }
+  .ps-overlay.open {
+    background: rgba(0,0,0,0.88);
+    pointer-events: all;
+  }
+  .ps-modal {
+    width: 100%;
+    max-width: 420px;
+    background: #111;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #222;
+    transform: translateY(28px) scale(0.96);
+    opacity: 0;
+    transition: transform 0.38s cubic-bezier(.22,.9,.36,1), opacity 0.3s;
+    box-shadow: 0 0 0 1px rgba(74,222,128,0.07), 6px 6px 0 rgba(74,222,128,0.04);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  .ps-modal::-webkit-scrollbar { display: none; }
+  .ps-overlay.open .ps-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  .ps-stripe { height: 3px; background: #4ade80; }
+  .ps-bot-stripe { height: 2px; background: #1a2e1a; }
+  .ps-head {
+    padding: 18px 22px 15px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid #1c1c1c;
+    background: #111;
+    position: relative;
+    overflow: hidden;
+  }
+  .ps-head-ghost {
+    position: absolute;
+    font-family: var(--display);
+    font-size: 72px;
+    color: rgba(74,222,128,0.04);
+    right: -4px;
+    bottom: -12px;
+    pointer-events: none;
+    line-height: 1;
+    user-select: none;
+  }
+  .ps-eyebrow {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #4ade80;
+    margin-bottom: 4px;
+  }
+  .ps-title {
+    font-family: var(--display);
+    font-size: 32px;
+    letter-spacing: 0.02em;
+    color: #f0f0f0;
+    line-height: 1;
+    margin: 0 0 5px;
+  }
+  .ps-tagline {
+    font-family: var(--mono);
+    font-size: 10px;
+    color: #555;
+    line-height: 1.5;
+  }
+  .ps-close {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: #555;
+    width: 26px; height: 26px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+    font-family: var(--mono);
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .ps-close:hover { color: #f0f0f0; border-color: #555; }
+  .ps-body {
+    padding: 22px 22px 20px;
+    background: #0d0d0d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  .ps-phone {
+    width: 200px;
+    background: #0a0a0a;
+    border-radius: 32px;
+    border: 2px solid #2a2a2a;
+    padding: 12px 10px;
+    flex-shrink: 0;
+  }
+  .ps-phone-cam {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    margin: 0 auto 10px;
+  }
+  .ps-phone-screen {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000;
+  }
+  .ps-phone-screen video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .ps-phone-home {
+    width: 44px; height: 4px;
+    border-radius: 2px;
+    background: #222;
+    margin: 10px auto 0;
+  }
+  .ps-carousel-wrap { width: 100%; }
+  .ps-carousel-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #4ade80;
+    margin-bottom: 10px;
+  }
+  .ps-carousel {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+  .ps-carousel::-webkit-scrollbar { display: none; }
+  .ps-carousel-item {
+    flex-shrink: 0;
+    width: 120px;
+    aspect-ratio: 9 / 16;
+    border-radius: 8px;
+    border: 1px solid #1e3a1e;
+    scroll-snap-align: start;
+    overflow: hidden;
+    background: #0a0a0a;
+  }
+  .ps-carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s;
+  }
+  .ps-carousel-item:hover img { transform: scale(1.04); }
+  .ps-features-wrap { width: 100%; }
+  .ps-features-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #4ade80;
+    margin-bottom: 10px;
+  }
+  .ps-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+  }
+  .ps-feat {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 4px;
+    padding: 10px 11px;
+  }
+  .ps-feat-icon { font-size: 14px; margin-bottom: 4px; }
+  .ps-feat-title {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: #4ade80;
+    letter-spacing: 0.04em;
+    margin-bottom: 3px;
+  }
+  .ps-feat-desc {
+    font-family: var(--mono);
+    font-size: 9px;
+    color: #444;
+    line-height: 1.45;
+  }
+  .ps-badges {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+  }
+  .ps-badge {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    padding: 9px 10px;
+    opacity: 0.45;
+    cursor: default;
+  }
+  .ps-badge-text {
+    font-family: var(--mono);
+    font-size: 8px;
+    color: #888;
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+  .ps-badge-store {
+    display: block;
+    font-size: 9px;
+    color: #aaa;
+    margin-bottom: 1px;
+  }
+  .ps-foot {
+    padding: 12px 22px;
+    background: #0a0a0a;
+    border-top: 1px solid #181818;
+    text-align: center;
+  }
+  .ps-foot-text {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #2e2e2e;
+  }
+
   /* Hover image preview on project */
   .project-preview {
     position: fixed;
@@ -1015,19 +1266,19 @@
     <span class="section-count">004 works</span>
   </div>
   <div class="projects-list">
-    <a class="project-row" href="#" data-emoji="🌱">
+    <div class="project-row project-row--game" id="ps-row" data-emoji="🌱" role="button" tabindex="0" aria-haspopup="dialog">
       <span class="project-num">001</span>
       <div class="project-main">
-        <div class="project-name">Planty</div>
+        <div class="project-name" style="color:#a7f3d0;">Planta Sano</div>
         <div class="project-desc">AI plant health assistant — diagnose, care, and grow with Claude Vision.</div>
       </div>
       <div class="project-tags">
-        <span class="project-tag">Mobile</span>
-        <span class="project-tag">AI Vision</span>
-        <span class="project-tag">Claude</span>
+        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">Mobile</span>
+        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">AI Vision</span>
+        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">Claude</span>
       </div>
       <div class="project-arrow">→</div>
-    </a>
+    </div>
     <a class="project-row" href="#" data-emoji="🚀">
       <span class="project-num">002</span>
       <div class="project-main">
@@ -1069,6 +1320,79 @@
     </div>
   </div>
 </section>
+
+<!-- PLANTA SANO MODAL -->
+<div class="ps-overlay" id="ps-overlay" role="dialog" aria-modal="true" aria-label="Planta Sano">
+  <div class="ps-modal">
+    <div class="ps-stripe"></div>
+    <div class="ps-head">
+      <div>
+        <div class="ps-eyebrow">echo maik studio · 001</div>
+        <h2 class="ps-title">Planta Sano</h2>
+        <div class="ps-tagline">AI-powered plant health —<br>scan, diagnose, track.</div>
+      </div>
+      <button class="ps-close" id="ps-close" aria-label="Close">✕</button>
+      <div class="ps-head-ghost">PLANT</div>
+    </div>
+    <div class="ps-body">
+      <div class="ps-phone">
+        <div class="ps-phone-cam"></div>
+        <div class="ps-phone-screen">
+          <video src="planta-sano-demo.mp4" autoplay loop muted playsinline></video>
+        </div>
+        <div class="ps-phone-home"></div>
+      </div>
+      <div class="ps-carousel-wrap">
+        <div class="ps-carousel-label">Inside the App</div>
+        <div class="ps-carousel">
+          <div class="ps-carousel-item"><img src="planta-sano-notebook.png" alt="My Diary notebook" loading="lazy"></div>
+          <div class="ps-carousel-item"><img src="planta-sano-diary.png" alt="Diary timeline" loading="lazy"></div>
+          <div class="ps-carousel-item"><img src="planta-sano-progress.png" alt="Progress tab" loading="lazy"></div>
+          <div class="ps-carousel-item"><img src="planta-sano-care.png" alt="Care instructions" loading="lazy"></div>
+        </div>
+      </div>
+      <div class="ps-features-wrap">
+        <div class="ps-features-label">Features</div>
+        <div class="ps-features">
+          <div class="ps-feat">
+            <div class="ps-feat-icon">📋</div>
+            <div class="ps-feat-title">Plant Diary</div>
+            <div class="ps-feat-desc">Daily photo journal with AI feedback</div>
+          </div>
+          <div class="ps-feat">
+            <div class="ps-feat-icon">📈</div>
+            <div class="ps-feat-title">Progress Tracking</div>
+            <div class="ps-feat-desc">Visual health trends over time</div>
+          </div>
+          <div class="ps-feat">
+            <div class="ps-feat-icon">🌴</div>
+            <div class="ps-feat-title">Care Instructions</div>
+            <div class="ps-feat-desc">Personalized AI plant care guides</div>
+          </div>
+          <div class="ps-feat">
+            <div class="ps-feat-icon">📝</div>
+            <div class="ps-feat-title">Smart Notebook</div>
+            <div class="ps-feat-desc">Notes the AI factors into advice</div>
+          </div>
+        </div>
+      </div>
+      <div class="ps-badges">
+        <div class="ps-badge">
+          <i class="ti ti-brand-apple" aria-hidden="true" style="color:#888;font-size:18px;"></i>
+          <div class="ps-badge-text"><span class="ps-badge-store">App Store</span>Coming Soon</div>
+        </div>
+        <div class="ps-badge">
+          <i class="ti ti-brand-google-play" aria-hidden="true" style="color:#888;font-size:18px;"></i>
+          <div class="ps-badge-text"><span class="ps-badge-store">Google Play</span>Coming Soon</div>
+        </div>
+      </div>
+    </div>
+    <div class="ps-foot">
+      <div class="ps-foot-text">Powered by Echo Maik Studio // EMS</div>
+    </div>
+    <div class="ps-bot-stripe"></div>
+  </div>
+</div>
 
 <!-- JONNY MODAL -->
 <div class="jj-overlay" id="jj-overlay" role="dialog" aria-modal="true" aria-label="Jonny in the Jungle">
@@ -1237,6 +1561,27 @@
     row.addEventListener('mouseenter', () => ring.classList.add('filled'));
     row.addEventListener('mouseleave', () => ring.classList.remove('filled'));
   });
+
+  // Planta Sano modal
+  const psRow = document.getElementById('ps-row');
+  const psOverlay = document.getElementById('ps-overlay');
+  const psClose = document.getElementById('ps-close');
+
+  function openPS() {
+    psOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    ring.classList.remove('filled');
+  }
+  function closePS() {
+    psOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  psRow.addEventListener('click', openPS);
+  psRow.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openPS(); });
+  psClose.addEventListener('click', closePS);
+  psOverlay.addEventListener('click', e => { if (e.target === psOverlay) closePS(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePS(); closeJonny(); } });
 
   // Jonny modal
   const jonnyRow = document.getElementById('jonny-row');
