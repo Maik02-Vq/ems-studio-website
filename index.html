@@ -639,37 +639,249 @@
     color: var(--muted);
   }
 
-  /* GALLERY */
-  .gallery-section {
-    border-top: 1px solid rgba(240,237,232,0.08);
+  /* project row game variant */
+  .project-row--game { cursor: none; }
+  .project-row--game .project-name { color: #c8f0a0; }
+  .project-row--game:hover .project-name { color: #a8e070; }
+  .project-tag--game { color: #6eff2a !important; border-color: rgba(110,255,42,0.25) !important; }
+
+  /* JONNY MODAL */
+  .jj-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    pointer-events: none;
+    transition: background 0.3s;
+    padding: 24px;
   }
-  .gallery-grid {
+  .jj-overlay.open {
+    background: rgba(0,0,0,0.88);
+    pointer-events: all;
+  }
+  .jj-modal {
+    width: 100%;
+    max-width: 680px;
+    background: #111;
+    border-radius: 3px;
+    overflow: hidden;
+    border: 1px solid #222;
+    transform: translateY(28px) scale(0.96);
+    opacity: 0;
+    transition: transform 0.38s cubic-bezier(.22,.9,.36,1), opacity 0.3s;
+    box-shadow: 0 0 0 1px rgba(110,255,42,0.07), 8px 8px 0 rgba(110,255,42,0.04);
+  }
+  .jj-overlay.open .jj-modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  .jj-stripe {
+    height: 3px;
+    background: repeating-linear-gradient(90deg, #6eff2a 0, #6eff2a 28px, #1a2e0a 28px, #1a2e0a 34px);
+  }
+  .jj-bot-stripe {
+    height: 2px;
+    background: repeating-linear-gradient(90deg, #1a2e0a 0, #1a2e0a 14px, rgba(110,255,42,0.15) 14px, rgba(110,255,42,0.15) 16px);
+  }
+  .jj-head {
+    padding: 18px 24px 15px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    border-bottom: 1px solid #1c1c1c;
+    background: #111;
+    position: relative;
+    overflow: hidden;
+  }
+  .jj-ghost {
+    position: absolute;
+    font-family: var(--display);
+    font-size: 72px;
+    color: rgba(110,255,42,0.035);
+    right: -4px;
+    bottom: -12px;
+    letter-spacing: 0.02em;
+    pointer-events: none;
+    line-height: 1;
+    user-select: none;
+  }
+  .jj-eyebrow {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #6eff2a;
+    margin-bottom: 5px;
+  }
+  .jj-title {
+    font-family: var(--display);
+    font-size: 34px;
+    letter-spacing: 0.02em;
+    color: #f0f0f0;
+    line-height: 1;
+    margin: 0;
+  }
+  .jj-title em { color: #6eff2a; font-style: normal; }
+  .jj-close {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: #555;
+    width: 28px; height: 28px;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    flex-shrink: 0;
+    transition: color 0.15s, border-color 0.15s;
+    font-family: var(--mono);
+  }
+  .jj-close:hover { color: #f0f0f0; border-color: #555; }
+  .jj-tabs {
+    display: flex;
+    border-bottom: 1px solid #1a1a1a;
+    background: #0e0e0e;
+  }
+  .jj-tab {
+    flex: 1;
+    padding: 11px 0;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #444;
+    cursor: pointer;
+    text-align: center;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .jj-tab--active { color: #6eff2a; border-bottom-color: #6eff2a; }
+  .jj-tab:hover:not(.jj-tab--active) { color: #888; }
+  .jj-panel { display: none; }
+  .jj-panel--active { display: block; }
+  .jj-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    padding: 0 48px 48px;
+    gap: 3px;
+    padding: 3px;
+    background: #0a0a0a;
   }
-  .gallery-item {
-    display: block;
+  .jj-shot {
+    position: relative;
+    aspect-ratio: 347 / 500;
     overflow: hidden;
-    border: 1px solid rgba(240,237,232,0.1);
     border-radius: 2px;
+    background: #111;
+    cursor: pointer;
   }
-  .gallery-item img {
-    width: 100%;
-    height: 260px;
+  .jj-shot img {
+    width: 100%; height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(100%);
-    transition: filter 0.3s, transform 0.3s;
+    transition: transform 0.35s, filter 0.35s;
+    filter: saturate(1.1) contrast(1.05);
   }
-  .gallery-item:hover img {
-    filter: grayscale(0%);
-    transform: scale(1.03);
+  .jj-shot:hover img { transform: scale(1.07); filter: saturate(1.25) contrast(1.08); }
+  .jj-shot-num {
+    position: absolute;
+    bottom: 5px; left: 6px;
+    font-family: var(--mono);
+    font-size: 8px;
+    color: #6eff2a;
+    background: rgba(0,0,0,0.72);
+    padding: 1px 5px;
+    border-radius: 1px;
   }
-  .gallery-cta {
-    padding: 0 48px 80px;
+  .jj-dl {
+    padding: 20px 24px 22px;
+    background: #0d0d0d;
   }
+  .jj-os-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #6eff2a;
+    border: 1px solid rgba(110,255,42,0.25);
+    padding: 3px 10px;
+    border-radius: 2px;
+    background: rgba(110,255,42,0.06);
+    margin-bottom: 16px;
+  }
+  .jj-dl-title {
+    font-family: var(--display);
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: #c8f0a0;
+    margin-bottom: 14px;
+  }
+  .jj-steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+  .jj-step { display: flex; align-items: flex-start; gap: 12px; }
+  .jj-step-n {
+    font-family: var(--display);
+    font-size: 20px;
+    color: #6eff2a;
+    line-height: 1.1;
+    flex-shrink: 0;
+    width: 16px;
+  }
+  .jj-step-t {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #777;
+    line-height: 1.6;
+  }
+  .jj-step-t strong { color: #c8f0a0; font-weight: 500; }
+  .jj-dl-divider { height: 1px; background: #1a1a1a; margin: 16px 0; }
+  .jj-notes { display: flex; flex-direction: column; gap: 8px; }
+  .jj-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: #444;
+    line-height: 1.55;
+  }
+  .jj-note-icon { flex-shrink: 0; color: #6eff2a; margin-top: 1px; }
+  .jj-note strong { color: #888; font-weight: 400; }
+  .jj-foot {
+    padding: 13px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #0c0c0c;
+    border-top: 1px solid #1a1a1a;
+  }
+  .jj-engine-label {
+    font-family: var(--mono);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #2e2e2e;
+  }
+  .jj-cta {
+    font-family: var(--display);
+    font-size: 15px;
+    letter-spacing: 0.1em;
+    color: #0a0a0a;
+    background: #6eff2a;
+    border: none;
+    padding: 9px 22px 7px;
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.15s;
+  }
+  .jj-cta:hover { background: #88ff44; }
 
   /* Hover image preview on project */
   .project-preview {
@@ -835,51 +1047,72 @@
       </div>
       <div class="project-arrow">→</div>
     </a>
-    <a class="project-row" href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" data-emoji="🌴">
+    <div class="project-row project-row--game" id="jonny-row" data-emoji="🌴" role="button" tabindex="0" aria-haspopup="dialog">
       <span class="project-num">004</span>
       <div class="project-main">
         <div class="project-name">Jonny in the Jungle</div>
         <div class="project-desc">2D pixel-art jungle platformer — explore, collect, and survive. Built solo, Windows demo.</div>
       </div>
       <div class="project-tags">
-        <span class="project-tag">Game</span>
-        <span class="project-tag">Pixel Art</span>
-        <span class="project-tag">Unity</span>
+        <span class="project-tag project-tag--game">Game</span>
+        <span class="project-tag project-tag--game">Pixel Art</span>
+        <span class="project-tag project-tag--game">Pygame</span>
       </div>
       <div class="project-arrow">→</div>
-    </a>
+    </div>
   </div>
 </section>
 
-<section class="gallery-section" id="jonny-gallery">
-  <div class="section-header">
-    <h2 class="section-title" style="font-size:48px;">Jonny in the Jungle — Gallery</h2>
-    <span class="section-count">006 shots</span>
+<!-- JONNY MODAL -->
+<div class="jj-overlay" id="jj-overlay" role="dialog" aria-modal="true" aria-label="Jonny in the Jungle">
+  <div class="jj-modal">
+    <div class="jj-stripe"></div>
+    <div class="jj-head">
+      <div>
+        <div class="jj-eyebrow">echo maik games · 004</div>
+        <h2 class="jj-title">Jonny <em>in the</em> Jungle</h2>
+      </div>
+      <button class="jj-close" id="jj-close" aria-label="Close">✕</button>
+      <div class="jj-ghost">JUNGLE</div>
+    </div>
+    <div class="jj-tabs">
+      <button class="jj-tab jj-tab--active" data-tab="screenshots">Screenshots</button>
+      <button class="jj-tab" data-tab="download">Download &amp; Play</button>
+    </div>
+    <div class="jj-panel jj-panel--active" id="jj-panel-screenshots">
+      <div class="jj-grid">
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4My5wbmc=/original/kp%2FYJk.png" alt="Screenshot 1" loading="lazy"><span class="jj-shot-num">01</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTEwNy5wbmc=/original/gS61Uk.png" alt="Screenshot 2" loading="lazy"><span class="jj-shot-num">02</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4MS5wbmc=/original/HG%2Fcfx.png" alt="Screenshot 3" loading="lazy"><span class="jj-shot-num">03</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4Mi5wbmc=/original/3rkDZO.png" alt="Screenshot 4" loading="lazy"><span class="jj-shot-num">04</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NS5wbmc=/original/g9eH7E.png" alt="Screenshot 5" loading="lazy"><span class="jj-shot-num">05</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NC5wbmc=/original/v7oa%2Bg.png" alt="Screenshot 6" loading="lazy"><span class="jj-shot-num">06</span></div>
+      </div>
+    </div>
+    <div class="jj-panel" id="jj-panel-download">
+      <div class="jj-dl">
+        <div class="jj-os-badge">Windows only</div>
+        <div class="jj-dl-title">Getting Started</div>
+        <div class="jj-steps">
+          <div class="jj-step"><span class="jj-step-n">1</span><span class="jj-step-t">Download the <strong>ZIP file</strong> from itch.io.</span></div>
+          <div class="jj-step"><span class="jj-step-n">2</span><span class="jj-step-t">Extract all files to a folder.</span></div>
+          <div class="jj-step"><span class="jj-step-n">3</span><span class="jj-step-t">Open the folder and run <strong>Jonny_In_the_Jungle_DEMO.exe</strong>.</span></div>
+          <div class="jj-step"><span class="jj-step-n">4</span><span class="jj-step-t">That's it — you're ready to play! 🐵🌴</span></div>
+        </div>
+        <div class="jj-dl-divider"></div>
+        <div class="jj-notes">
+          <div class="jj-note"><span class="jj-note-icon">✕</span><span>To exit, click the <strong>X</strong> in the upper-right corner. If it doesn't close immediately, click it a few more times.</span></div>
+          <div class="jj-note"><span class="jj-note-icon">✦</span><span>No installation needed. No Python required. Just extract, launch, and have fun!</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="jj-foot">
+      <span class="jj-engine-label">Pygame · solo dev · 2024</span>
+      <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" rel="noopener" class="jj-cta">↓ Download on itch.io</a>
+    </div>
+    <div class="jj-bot-stripe"></div>
   </div>
-  <div class="gallery-grid">
-    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
-      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4My5wbmc=/347x500/LUWdff.png" alt="Jonny in the Jungle screenshot 1" loading="lazy">
-    </a>
-    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
-      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTEwNy5wbmc=/347x500/%2FtSYFF.png" alt="Jonny in the Jungle screenshot 2" loading="lazy">
-    </a>
-    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
-      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4MS5wbmc=/347x500/BWmcka.png" alt="Jonny in the Jungle screenshot 3" loading="lazy">
-    </a>
-    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
-      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4Mi5wbmc=/347x500/vR5I4B.png" alt="Jonny in the Jungle screenshot 4" loading="lazy">
-    </a>
-    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
-      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NS5wbmc=/347x500/GbI7nY.png" alt="Jonny in the Jungle screenshot 5" loading="lazy">
-    </a>
-    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
-      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NC5wbmc=/347x500/CCWGbo.png" alt="Jonny in the Jungle screenshot 6" loading="lazy">
-    </a>
-  </div>
-  <div class="gallery-cta">
-    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="btn-primary">Play on itch.io →</a>
-  </div>
-</section>
+</div>
 
 <div class="marquee-wrapper">
   <div class="marquee-track">
@@ -1007,6 +1240,36 @@
     row.addEventListener('mousemove', e => {
       preview.style.left = (e.clientX + 24) + 'px';
       preview.style.top = (e.clientY - 80) + 'px';
+    });
+  });
+
+  // Jonny modal
+  const jonnyRow = document.getElementById('jonny-row');
+  const jjOverlay = document.getElementById('jj-overlay');
+  const jjClose = document.getElementById('jj-close');
+
+  function openJonny() {
+    jjOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    preview.classList.remove('visible');
+  }
+  function closeJonny() {
+    jjOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  jonnyRow.addEventListener('click', openJonny);
+  jonnyRow.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openJonny(); });
+  jjClose.addEventListener('click', closeJonny);
+  jjOverlay.addEventListener('click', e => { if (e.target === jjOverlay) closeJonny(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeJonny(); });
+
+  document.querySelectorAll('.jj-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.jj-tab').forEach(t => t.classList.remove('jj-tab--active'));
+      document.querySelectorAll('.jj-panel').forEach(p => p.classList.remove('jj-panel--active'));
+      tab.classList.add('jj-tab--active');
+      document.getElementById('jj-panel-' + tab.dataset.tab).classList.add('jj-panel--active');
     });
   });
 
