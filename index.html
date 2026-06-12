@@ -777,20 +777,23 @@
   }
   .jj-shot {
     position: relative;
-    aspect-ratio: 347 / 500;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
     border-radius: 2px;
-    background: #111;
+    background: #0a0a0a;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
   .jj-shot img {
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     transition: transform 0.35s, filter 0.35s;
     filter: saturate(1.1) contrast(1.05);
   }
-  .jj-shot:hover img { transform: scale(1.07); filter: saturate(1.25) contrast(1.08); }
+  .jj-shot:hover img { transform: scale(1.04); filter: saturate(1.25) contrast(1.08); }
   .jj-shot-num {
     position: absolute;
     bottom: 5px; left: 6px;
@@ -1085,12 +1088,12 @@
     </div>
     <div class="jj-panel jj-panel--active" id="jj-panel-screenshots">
       <div class="jj-grid">
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4My5wbmc=/347x500/LUWdff.png" alt="In-game visual 1" loading="lazy"><span class="jj-shot-num">01</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTEwNy5wbmc=/347x500/%2FtSYFF.png" alt="In-game visual 2" loading="lazy"><span class="jj-shot-num">02</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4MS5wbmc=/347x500/BWmcka.png" alt="In-game visual 3" loading="lazy"><span class="jj-shot-num">03</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4Mi5wbmc=/347x500/vR5I4B.png" alt="In-game visual 4" loading="lazy"><span class="jj-shot-num">04</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NS5wbmc=/347x500/GbI7nY.png" alt="In-game visual 5" loading="lazy"><span class="jj-shot-num">05</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NC5wbmc=/347x500/CCWGbo.png" alt="In-game visual 6" loading="lazy"><span class="jj-shot-num">06</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4My5wbmc=/original/QmfcC0.png" alt="In-game visual 1" loading="lazy"><span class="jj-shot-num">01</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTEwNy5wbmc=/original/Mi50jD.png" alt="In-game visual 2" loading="lazy"><span class="jj-shot-num">02</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4Mi5wbmc=/original/k%2F8zDN.png" alt="In-game visual 3" loading="lazy"><span class="jj-shot-num">03</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NS5wbmc=/original/CBPjel.png" alt="In-game visual 4" loading="lazy"><span class="jj-shot-num">04</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTE0My5wbmc=/original/MZLgd2.png" alt="In-game visual 5" loading="lazy"><span class="jj-shot-num">05</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTIzNi5wbmc=/original/v1kE3s.png" alt="In-game visual 6" loading="lazy"><span class="jj-shot-num">06</span></div>
       </div>
     </div>
     <div class="jj-panel" id="jj-panel-download">
