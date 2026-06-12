@@ -1345,10 +1345,10 @@
       <div class="ps-carousel-wrap">
         <div class="ps-carousel-label">Inside the App</div>
         <div class="ps-carousel">
-          <div class="ps-carousel-item"><img src="planta-sano-notebook.png" alt="My Diary notebook" loading="lazy"></div>
-          <div class="ps-carousel-item"><img src="planta-sano-diary.png" alt="Diary timeline" loading="lazy"></div>
-          <div class="ps-carousel-item"><img src="planta-sano-progress.png" alt="Progress tab" loading="lazy"></div>
-          <div class="ps-carousel-item"><img src="planta-sano-care.png" alt="Care instructions" loading="lazy"></div>
+          <div class="ps-carousel-item"><img src="planta-sano-notebook.png" alt="My Diary notebook"></div>
+          <div class="ps-carousel-item"><img src="planta-sano-diary.png" alt="Diary timeline"></div>
+          <div class="ps-carousel-item"><img src="planta-sano-progress.png" alt="Progress tab"></div>
+          <div class="ps-carousel-item"><img src="planta-sano-care.png" alt="Care instructions"></div>
         </div>
       </div>
       <div class="ps-features-wrap">
@@ -1566,15 +1566,22 @@
   const psRow = document.getElementById('ps-row');
   const psOverlay = document.getElementById('ps-overlay');
   const psClose = document.getElementById('ps-close');
+  const psVideo = psOverlay.querySelector('video');
 
   function openPS() {
     psOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
     ring.classList.remove('filled');
+    psVideo.currentTime = 0;
+    psVideo.play().catch(() => {});
+    psOverlay.querySelectorAll('img[loading="lazy"]').forEach(img => {
+      if (img.dataset.src) { img.src = img.dataset.src; }
+    });
   }
   function closePS() {
     psOverlay.classList.remove('open');
     document.body.style.overflow = '';
+    psVideo.pause();
   }
 
   psRow.addEventListener('click', openPS);
