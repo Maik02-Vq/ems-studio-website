@@ -57,7 +57,12 @@
     pointer-events: none;
     z-index: 9998;
     transform: translate(-50%, -50%);
-    transition: transform 0.15s ease-out, width 0.25s, height 0.25s, opacity 0.2s;
+    transition: transform 0.15s ease-out, width 0.25s, height 0.25s, opacity 0.2s, background 0.2s, border-color 0.2s;
+  }
+  .cursor-ring.filled {
+    background: rgba(240,237,232,0.12);
+    border-color: rgba(240,237,232,0.7);
+    width: 44px; height: 44px;
   }
   body:hover .cursor { opacity: 1; }
 
@@ -917,7 +922,6 @@
 
 <div class="cursor" id="cursor"></div>
 <div class="cursor-ring" id="cursor-ring"></div>
-<div class="project-preview" id="preview"><div class="preview-inner" id="preview-inner"></div></div>
 
 <nav>
   <div class="nav-logo">ems<span>_</span>studio</div>
@@ -1076,17 +1080,17 @@
       <div class="jj-ghost">JUNGLE</div>
     </div>
     <div class="jj-tabs">
-      <button class="jj-tab jj-tab--active" data-tab="screenshots">Screenshots</button>
+      <button class="jj-tab jj-tab--active" data-tab="screenshots">In-Game Visuals</button>
       <button class="jj-tab" data-tab="download">Download &amp; Play</button>
     </div>
     <div class="jj-panel jj-panel--active" id="jj-panel-screenshots">
       <div class="jj-grid">
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4My5wbmc=/original/kp%2FYJk.png" alt="Screenshot 1" loading="lazy"><span class="jj-shot-num">01</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTEwNy5wbmc=/original/gS61Uk.png" alt="Screenshot 2" loading="lazy"><span class="jj-shot-num">02</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4MS5wbmc=/original/HG%2Fcfx.png" alt="Screenshot 3" loading="lazy"><span class="jj-shot-num">03</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4Mi5wbmc=/original/3rkDZO.png" alt="Screenshot 4" loading="lazy"><span class="jj-shot-num">04</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NS5wbmc=/original/g9eH7E.png" alt="Screenshot 5" loading="lazy"><span class="jj-shot-num">05</span></div>
-        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NC5wbmc=/original/v7oa%2Bg.png" alt="Screenshot 6" loading="lazy"><span class="jj-shot-num">06</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4My5wbmc=/347x500/LUWdff.png" alt="In-game visual 1" loading="lazy"><span class="jj-shot-num">01</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTEwNy5wbmc=/347x500/%2FtSYFF.png" alt="In-game visual 2" loading="lazy"><span class="jj-shot-num">02</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4MS5wbmc=/347x500/BWmcka.png" alt="In-game visual 3" loading="lazy"><span class="jj-shot-num">03</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4Mi5wbmc=/347x500/vR5I4B.png" alt="In-game visual 4" loading="lazy"><span class="jj-shot-num">04</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NS5wbmc=/347x500/GbI7nY.png" alt="In-game visual 5" loading="lazy"><span class="jj-shot-num">05</span></div>
+        <div class="jj-shot"><img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NC5wbmc=/347x500/CCWGbo.png" alt="In-game visual 6" loading="lazy"><span class="jj-shot-num">06</span></div>
       </div>
     </div>
     <div class="jj-panel" id="jj-panel-download">
@@ -1224,23 +1228,11 @@
   }
   animateRing();
 
-  // Project hover preview
-  const preview = document.getElementById('preview');
-  const previewInner = document.getElementById('preview-inner');
+  // Project row hover — fill cursor ring
   const projectRows = document.querySelectorAll('.project-row');
-
   projectRows.forEach(row => {
-    row.addEventListener('mouseenter', e => {
-      previewInner.textContent = row.dataset.emoji;
-      preview.classList.add('visible');
-    });
-    row.addEventListener('mouseleave', () => {
-      preview.classList.remove('visible');
-    });
-    row.addEventListener('mousemove', e => {
-      preview.style.left = (e.clientX + 24) + 'px';
-      preview.style.top = (e.clientY - 80) + 'px';
-    });
+    row.addEventListener('mouseenter', () => ring.classList.add('filled'));
+    row.addEventListener('mouseleave', () => ring.classList.remove('filled'));
   });
 
   // Jonny modal
