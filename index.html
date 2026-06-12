@@ -639,6 +639,38 @@
     color: var(--muted);
   }
 
+  /* GALLERY */
+  .gallery-section {
+    border-top: 1px solid rgba(240,237,232,0.08);
+  }
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 0 48px 48px;
+  }
+  .gallery-item {
+    display: block;
+    overflow: hidden;
+    border: 1px solid rgba(240,237,232,0.1);
+    border-radius: 2px;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    filter: grayscale(100%);
+    transition: filter 0.3s, transform 0.3s;
+  }
+  .gallery-item:hover img {
+    filter: grayscale(0%);
+    transform: scale(1.03);
+  }
+  .gallery-cta {
+    padding: 0 48px 80px;
+  }
+
   /* Hover image preview on project */
   .project-preview {
     position: fixed;
@@ -761,7 +793,7 @@
 <section id="projects">
   <div class="section-header">
     <h2 class="section-title">Projects</h2>
-    <span class="section-count">003 works</span>
+    <span class="section-count">004 works</span>
   </div>
   <div class="projects-list">
     <a class="project-row" href="#" data-emoji="🌱">
@@ -803,6 +835,49 @@
       </div>
       <div class="project-arrow">→</div>
     </a>
+    <a class="project-row" href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" data-emoji="🌴">
+      <span class="project-num">004</span>
+      <div class="project-main">
+        <div class="project-name">Jonny in the Jungle</div>
+        <div class="project-desc">2D pixel-art jungle platformer — explore, collect, and survive. Built solo, Windows demo.</div>
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Game</span>
+        <span class="project-tag">Pixel Art</span>
+        <span class="project-tag">Unity</span>
+      </div>
+      <div class="project-arrow">→</div>
+    </a>
+  </div>
+</section>
+
+<section class="gallery-section" id="jonny-gallery">
+  <div class="section-header">
+    <h2 class="section-title" style="font-size:48px;">Jonny in the Jungle — Gallery</h2>
+    <span class="section-count">006 shots</span>
+  </div>
+  <div class="gallery-grid">
+    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
+      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4My5wbmc=/347x500/LUWdff.png" alt="Jonny in the Jungle screenshot 1" loading="lazy">
+    </a>
+    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
+      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAxNTEwNy5wbmc=/347x500/%2FtSYFF.png" alt="Jonny in the Jungle screenshot 2" loading="lazy">
+    </a>
+    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
+      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4MS5wbmc=/347x500/BWmcka.png" alt="Jonny in the Jungle screenshot 3" loading="lazy">
+    </a>
+    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
+      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4Mi5wbmc=/347x500/vR5I4B.png" alt="Jonny in the Jungle screenshot 4" loading="lazy">
+    </a>
+    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
+      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NS5wbmc=/347x500/GbI7nY.png" alt="Jonny in the Jungle screenshot 5" loading="lazy">
+    </a>
+    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="gallery-item">
+      <img src="https://img.itch.zone/aW1hZ2UvMzY5NzYwNC8yMjAwNDk4NC5wbmc=/347x500/CCWGbo.png" alt="Jonny in the Jungle screenshot 6" loading="lazy">
+    </a>
+  </div>
+  <div class="gallery-cta">
+    <a href="https://echo-maik-games.itch.io/jonny-in-the-jungle" target="_blank" class="btn-primary">Play on itch.io →</a>
   </div>
 </section>
 
