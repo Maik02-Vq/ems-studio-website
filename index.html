@@ -1181,6 +1181,25 @@
     color: #2e2e2e;
   }
 
+  @media (min-width: 600px) {
+    .ps-modal { max-width: 750px; }
+    .ps-body {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      align-items: start;
+      gap: 24px;
+      padding: 24px 24px 22px;
+    }
+    .ps-phone { width: 240px; }
+    .ps-carousel-wrap,
+    .ps-features-wrap,
+    .ps-badges { width: 100%; }
+    .ps-body > .ps-phone { grid-column: 1; grid-row: 1 / 4; align-self: center; }
+    .ps-body > .ps-carousel-wrap { grid-column: 2; }
+    .ps-body > .ps-features-wrap { grid-column: 2; }
+    .ps-body > .ps-badges { grid-column: 2; }
+  }
+
   /* Hover image preview on project */
   .project-preview {
     position: fixed;
