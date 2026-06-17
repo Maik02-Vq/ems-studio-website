@@ -28,7 +28,7 @@ Built with zero frameworks. Pure HTML, CSS, JS — shipped via Railway.
 
 | # | Name | Type | Modal |
 |---|---|---|---|
-| 001 | **Planta Sano** | Mobile · AI Vision · Claude | Garden Tech — phone mockup + video + carousel |
+| 001 | **Planta Sano** | Mobile · AI Vision · Claude | Garden Tech — phone mockup + video + screenshot slider |
 | 002 | **CiaoLead** | Web · SaaS · B2B | — |
 | 003 | **Project Anchor** | Mobile · AI Agent · Wellness | — |
 | 004 | **Jonny in the Jungle** | Game · Pixel Art · Pygame | Urban Jungle — screenshots + download guide |
@@ -69,15 +69,38 @@ Full build + deployment session. Starting from a raw HTML file, shipped in one d
 
 ---
 
+## Session log — 17.06.2026
+
+Polish pass on the Planta Sano modal + full mobile responsiveness.
+
+### 🖼️ Planta Sano screenshot slider
+- Replaced the flat carousel with a **second phone frame** holding the 4 app screenshots in a swipeable slider
+- Design nav controls: circular `←` / `→` buttons (disabled at start/end) + clickable dot indicators
+- Slider track uses a CSS `translateX` transition; lightbox still available on image click
+- Bumped phone frame to **300px** and modal to **520px** on desktop so screenshots read sharply
+- Screenshots shown with `object-fit: contain` + centered — full screen visible, no cropping (applied on **all** viewports)
+
+### 📱 Mobile responsiveness (`@media max-width: 768px`)
+The site previously had **no** mobile breakpoint — all layouts were desktop-fixed. Added a single mobile block (desktop styles untouched):
+- **Nav** — hides the "Available for work" status badge, tightens padding/links (was overflowing)
+- **Custom cursor** — disabled on touch (it was floating stuck at `0,0`), default cursors restored
+- **Hero** — hides the 380px decorative phone (overflowed), rescales title, drops the vertical "Scroll" label
+- **Counter row** — `4 cols → 2×2` grid with corrected borders
+- **Project rows** — the fixed `80px/1fr/200px/160px` grid (~536px min) restructured into a stacked `grid-template-areas` layout
+- **About** — two columns stacked to one; right border → bottom border
+- **Footer** — logo + copyright stacked vertically
+
+---
+
 ## Asset files (repo root)
 
 | File | Size | Used in |
 |---|---|---|
 | `planta-sano-demo.mp4` | ~900KB | Planta Sano modal — phone video loop |
-| `planta-sano-notebook.png` | ~145KB | Planta Sano carousel |
-| `planta-sano-diary.png` | ~160KB | Planta Sano carousel |
-| `planta-sano-progress.png` | ~51KB | Planta Sano carousel |
-| `planta-sano-care.png` | ~127KB | Planta Sano carousel |
+| `planta-sano-notebook.png` | ~145KB | Planta Sano slider |
+| `planta-sano-diary.png` | ~160KB | Planta Sano slider |
+| `planta-sano-progress.png` | ~51KB | Planta Sano slider |
+| `planta-sano-care.png` | ~127KB | Planta Sano slider |
 
 ---
 
