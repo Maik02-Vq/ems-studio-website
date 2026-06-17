@@ -1225,6 +1225,90 @@
     .ps-slider-phone { width: 300px; }
   }
 
+  /* MOBILE */
+  @media (max-width: 768px) {
+    /* Touch devices: drop the custom cursor (otherwise it floats stuck at 0,0) */
+    .cursor, .cursor-ring { display: none; }
+    body { cursor: auto; }
+    .btn-primary, .btn-ghost, .project-row, .ps-close, .jj-close,
+    .ps-slider-btn, .jj-tab, .ps-slider-dot { cursor: pointer; }
+
+    /* NAV — the links + status badge overflow a phone width */
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 18px; }
+    .nav-status { display: none; }
+
+    /* HERO */
+    .hero { padding: 0 24px 48px; min-height: 90vh; }
+    .hero-photo { display: none; }
+    .hero-scroll { display: none; }
+    .hero-title { font-size: clamp(56px, 18vw, 80px); margin-bottom: 24px; }
+    .hero-eyebrow { margin-bottom: 16px; }
+    .hero-sub { font-size: 15px; margin-bottom: 32px; }
+    .hero-cta-row { flex-wrap: wrap; gap: 16px; }
+
+    /* COUNTER ROW — 4 columns is impossible on a phone */
+    .counter-row { grid-template-columns: repeat(2, 1fr); }
+    .counter-item { padding: 28px 24px; }
+    .counter-item:nth-child(even) { border-right: none; }
+    .counter-item:nth-child(1), .counter-item:nth-child(2) {
+      border-bottom: 1px solid rgba(240,237,232,0.08);
+    }
+    .counter-num { font-size: 40px; }
+
+    /* SECTION HEADERS */
+    .section-header { padding: 56px 24px 28px; }
+    .section-title { font-size: 48px; }
+
+    /* PROJECTS — the fixed 80px/1fr/200px/160px grid blows past the viewport */
+    .projects-list { padding: 0 24px 56px; }
+    .project-row {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "num arrow"
+        "main main"
+        "tags tags";
+      gap: 10px 12px;
+      padding: 22px 0;
+      align-items: center;
+    }
+    .project-num { grid-area: num; }
+    .project-main { grid-area: main; }
+    .project-tags { grid-area: tags; }
+    .project-arrow { grid-area: arrow; align-self: start; }
+    .project-name { font-size: 30px; }
+    .project-desc { max-width: none; }
+    .project-row::before { inset: 0 -24px; }
+
+    /* ABOUT — two equal columns are far too cramped */
+    .about-section { grid-template-columns: 1fr; min-height: 0; }
+    .about-left {
+      padding: 56px 24px;
+      border-right: none;
+      border-bottom: 1px solid rgba(240,237,232,0.08);
+      gap: 40px;
+    }
+    .about-right { padding: 56px 24px; }
+    .about-title { font-size: 48px; margin-bottom: 28px; }
+    .about-text { font-size: 16px; }
+    .stack-cloud { margin-top: 28px; }
+
+    /* CONTACT */
+    .contact-section { padding: 72px 24px; }
+    .contact-title { margin-bottom: 32px; }
+
+    /* FOOTER — logo + copyright won't fit side by side */
+    footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 24px;
+    }
+
+    /* MARQUEE */
+    .marquee-item { font-size: 18px; }
+  }
+
   /* Hover image preview on project */
   .project-preview {
     position: fixed;
