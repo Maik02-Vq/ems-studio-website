@@ -1182,8 +1182,18 @@
   }
 
   @media (min-width: 600px) {
-    .ps-modal { max-width: 520px; }
-    .ps-carousel-item { width: 175px; }
+    .ps-modal { max-width: 560px; }
+    .ps-carousel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      overflow-x: unset;
+      scroll-snap-type: unset;
+    }
+    .ps-carousel-item {
+      width: 100%;
+      scroll-snap-align: unset;
+    }
   }
 
   /* Hover image preview on project */
