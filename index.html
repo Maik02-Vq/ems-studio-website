@@ -1067,42 +1067,81 @@
     background: #222;
     margin: 10px auto 0;
   }
-  .ps-carousel-wrap { width: 100%; }
-  .ps-carousel-label {
+  .ps-slider-wrap { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .ps-slider-label {
     font-family: var(--mono);
     font-size: 9px;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: #4ade80;
-    margin-bottom: 10px;
+    align-self: flex-start;
   }
-  .ps-carousel {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 2px;
-  }
-  .ps-carousel::-webkit-scrollbar { display: none; }
-  .ps-carousel-item {
-    flex-shrink: 0;
-    width: 120px;
-    aspect-ratio: 9 / 16;
-    border-radius: 8px;
-    border: 1px solid #1e3a1e;
-    scroll-snap-align: start;
-    overflow: hidden;
+  .ps-slider-phone {
+    width: 200px;
     background: #0a0a0a;
+    border-radius: 32px;
+    border: 2px solid #2a2a2a;
+    padding: 12px 10px;
   }
-  .ps-carousel-item img {
+  .ps-slider-cam {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    margin: 0 auto 10px;
+  }
+  .ps-slider-viewport {
     width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #000;
+  }
+  .ps-slider-track {
+    display: flex;
+    width: 400%;
+    height: 100%;
+    transition: transform 0.35s cubic-bezier(.25,.8,.25,1);
+  }
+  .ps-slider-track img {
+    width: 25%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.3s;
+    flex-shrink: 0;
+    cursor: zoom-in;
   }
-  .ps-carousel-item:hover img { transform: scale(1.04); }
+  .ps-slider-home {
+    width: 44px; height: 4px;
+    border-radius: 2px;
+    background: #222;
+    margin: 10px auto 0;
+  }
+  .ps-slider-nav { display: flex; align-items: center; gap: 12px; }
+  .ps-slider-btn {
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    color: #4ade80;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-family: var(--mono);
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .ps-slider-btn:hover:not(:disabled) { background: #222; border-color: #4ade80; }
+  .ps-slider-btn:disabled { opacity: 0.25; cursor: default; }
+  .ps-slider-dots { display: flex; gap: 5px; }
+  .ps-slider-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #2a2a2a;
+    border: 1px solid #333;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .ps-slider-dot.active { background: #4ade80; border-color: #4ade80; }
   .ps-features-wrap { width: 100%; }
   .ps-features-label {
     font-family: var(--mono);
@@ -1182,18 +1221,8 @@
   }
 
   @media (min-width: 600px) {
-    .ps-modal { max-width: 560px; }
-    .ps-carousel {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      overflow-x: unset;
-      scroll-snap-type: unset;
-    }
-    .ps-carousel-item {
-      width: 100%;
-      scroll-snap-align: unset;
-    }
+    .ps-modal { max-width: 480px; }
+    .ps-slider-phone { width: 240px; }
   }
 
   /* Hover image preview on project */
@@ -1402,13 +1431,24 @@
         </div>
         <div class="ps-phone-home"></div>
       </div>
-      <div class="ps-carousel-wrap">
-        <div class="ps-carousel-label">Inside the App</div>
-        <div class="ps-carousel">
-          <div class="ps-carousel-item"><img src="planta-sano-notebook.png" alt="My Diary notebook"></div>
-          <div class="ps-carousel-item"><img src="planta-sano-diary.png" alt="Diary timeline"></div>
-          <div class="ps-carousel-item"><img src="planta-sano-progress.png" alt="Progress tab"></div>
-          <div class="ps-carousel-item"><img src="planta-sano-care.png" alt="Care instructions"></div>
+      <div class="ps-slider-wrap">
+        <div class="ps-slider-label">Inside the App</div>
+        <div class="ps-slider-phone">
+          <div class="ps-slider-cam"></div>
+          <div class="ps-slider-viewport">
+            <div class="ps-slider-track" id="ps-slider-track">
+              <img src="planta-sano-notebook.png" alt="My Diary">
+              <img src="planta-sano-diary.png" alt="Diary timeline">
+              <img src="planta-sano-progress.png" alt="Progress">
+              <img src="planta-sano-care.png" alt="Care instructions">
+            </div>
+          </div>
+          <div class="ps-slider-home"></div>
+        </div>
+        <div class="ps-slider-nav">
+          <button class="ps-slider-btn" id="ps-slider-prev" aria-label="Previous">←</button>
+          <div class="ps-slider-dots" id="ps-slider-dots"></div>
+          <button class="ps-slider-btn" id="ps-slider-next" aria-label="Next">→</button>
         </div>
       </div>
       <div class="ps-features-wrap">
@@ -1648,7 +1688,34 @@
   const psLightboxImg = document.getElementById('ps-lightbox-img');
   const psLightboxClose = document.getElementById('ps-lightbox-close');
 
-  psOverlay.querySelectorAll('.ps-carousel-item img').forEach(img => {
+  // Slider
+  const sliderTrack = document.getElementById('ps-slider-track');
+  const sliderPrev = document.getElementById('ps-slider-prev');
+  const sliderNext = document.getElementById('ps-slider-next');
+  const sliderDotsEl = document.getElementById('ps-slider-dots');
+  const sliderImgs = Array.from(sliderTrack.querySelectorAll('img'));
+  let sliderIdx = 0;
+
+  sliderImgs.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'ps-slider-dot' + (i === 0 ? ' active' : '');
+    dot.addEventListener('click', () => goTo(i));
+    sliderDotsEl.appendChild(dot);
+  });
+
+  function goTo(i) {
+    sliderIdx = i;
+    sliderTrack.style.transform = `translateX(-${sliderIdx * 25}%)`;
+    sliderDotsEl.querySelectorAll('.ps-slider-dot').forEach((d, j) => d.classList.toggle('active', j === sliderIdx));
+    sliderPrev.disabled = sliderIdx === 0;
+    sliderNext.disabled = sliderIdx === sliderImgs.length - 1;
+  }
+  sliderPrev.addEventListener('click', () => goTo(sliderIdx - 1));
+  sliderNext.addEventListener('click', () => goTo(sliderIdx + 1));
+  goTo(0);
+
+  // Lightbox on slider images
+  sliderImgs.forEach(img => {
     img.addEventListener('click', () => {
       psLightboxImg.src = img.src;
       psLightboxImg.alt = img.alt;
