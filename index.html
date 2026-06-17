@@ -1106,7 +1106,8 @@
   .ps-slider-track img {
     width: 25%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
     display: block;
     flex-shrink: 0;
     cursor: zoom-in;
@@ -1223,7 +1224,6 @@
   @media (min-width: 600px) {
     .ps-modal { max-width: 520px; }
     .ps-slider-phone { width: 300px; }
-    .ps-slider-track img { object-fit: contain; object-position: center; }
   }
 
   /* MOBILE */
