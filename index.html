@@ -1277,7 +1277,7 @@
     transition: transform 0.38s cubic-bezier(.22,.9,.36,1), opacity 0.3s;
   }
   .pa-overlay.open .pa-modal {
-    transform: translateY(0) scale(1);
+    transform: none;
     opacity: 1;
   }
   .pa-close {
@@ -1414,6 +1414,27 @@
       height: 700px !important;
       transform: translateX(-50%) scale(var(--pa-scale, 0.34)) !important;
       transform-origin: top center !important;
+    }
+    /* ---- Mobile 3D fix: stop the flipbook's front/back faces bleeding through.
+       iOS Safari needs the -webkit- prefixes for preserve-3d / backface-visibility,
+       and we push the opaque front face ahead of the back face in depth so it
+       always occludes it. Scoped to mobile — desktop diary is untouched. ---- */
+    #pa-diary { -webkit-perspective: 2800px; }
+    #pa-diary [id^="leaf"] {
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+    #pa-diary [id^="leaf"] > div {
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+    }
+    #pa-diary [id^="leaf"] > div:first-child {            /* front face */
+      -webkit-transform: translateZ(30px);
+      transform: translateZ(30px);
+    }
+    #pa-diary [id^="leaf"] > div:nth-child(2) {           /* back face */
+      -webkit-transform: rotateY(180deg) translateZ(30px) !important;
+      transform: rotateY(180deg) translateZ(30px) !important;
     }
   }
 
@@ -1620,13 +1641,13 @@
     <div class="project-row" id="pa-row" data-emoji="⚓" role="button" tabindex="0" aria-haspopup="dialog">
       <span class="project-num">003</span>
       <div class="project-main">
-        <div class="project-name">Project Anchor</div>
+        <div class="project-name" style="color:#d99c84;">Project Anchor</div>
         <div class="project-desc">Annie — personal AI agent for anxiety management. Daily support, grounding tools.</div>
       </div>
       <div class="project-tags">
-        <span class="project-tag">Mobile</span>
-        <span class="project-tag">AI Agent</span>
-        <span class="project-tag">Wellness</span>
+        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">N8N</span>
+        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">React Native</span>
+        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">ElevenLabs</span>
       </div>
       <div class="project-arrow">→</div>
     </div>
