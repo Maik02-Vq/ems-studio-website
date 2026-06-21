@@ -1,0 +1,62 @@
+<svg viewBox="0 0 680 440" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" role="img" aria-label="EMS smoked graffiti">
+<style>
+  @keyframes emsSmoke1 { 0%,100% { transform: translate(0,0); opacity:.12; } 50% { transform: translate(36px,-14px); opacity:.20; } }
+  @keyframes emsSmoke2 { 0%,100% { transform: translate(0,0); opacity:.08; } 50% { transform: translate(-30px,-18px); opacity:.15; } }
+  @keyframes emsGleam { 0%,100% { opacity:0; } 50% { opacity:.45; } }
+  .emsS1 { animation: emsSmoke1 9s ease-in-out infinite; transform-origin:center; }
+  .emsS2 { animation: emsSmoke2 12s ease-in-out infinite; transform-origin:center; }
+  .emsGleam { animation: emsGleam 6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) { .emsS1,.emsS2,.emsGleam { animation: none; } }
+</style>
+<defs>
+  <pattern id="emsBrick" width="68" height="56" patternUnits="userSpaceOnUse">
+    <rect width="68" height="56" fill="#0b0b0b"/>
+    <rect x="0" y="3" width="64" height="22" fill="#171717"/>
+    <rect x="-34" y="31" width="64" height="22" fill="#151515"/>
+    <rect x="36" y="31" width="64" height="22" fill="#191919"/>
+  </pattern>
+  <radialGradient id="emsVig" cx="48%" cy="42%" r="72%">
+    <stop offset="38%" stop-color="#0a0a0a" stop-opacity="0"/>
+    <stop offset="100%" stop-color="#070707" stop-opacity="1"/>
+  </radialGradient>
+  <radialGradient id="emsHaze" cx="50%" cy="50%" r="50%">
+    <stop offset="0%" stop-color="#e8e8e8" stop-opacity="0.9"/>
+    <stop offset="100%" stop-color="#e8e8e8" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<rect x="0" y="0" width="680" height="440" fill="#0a0a0a"/>
+<rect x="0" y="0" width="680" height="440" fill="url(#emsBrick)" opacity="0.8"/>
+<rect x="0" y="0" width="680" height="440" fill="url(#emsVig)"/>
+<ellipse class="emsS1" cx="250" cy="250" rx="250" ry="150" fill="url(#emsHaze)"/>
+<ellipse class="emsS2" cx="470" cy="210" rx="200" ry="130" fill="url(#emsHaze)"/>
+<g stroke="#ffffff" stroke-linecap="round" fill="none">
+  <line x1="40" y1="380" x2="300" y2="120" stroke-width="1" opacity="0.05"/>
+  <line x1="420" y1="360" x2="650" y2="120" stroke-width="1" opacity="0.05"/>
+</g>
+<g transform="translate(44,5) skewX(-10)">
+  <g id="emsGlyphs">
+    <polygon style="fill:inherit;stroke:inherit" points="56,150 214,150 244,166 214,182 110,182 110,212 192,212 214,229 192,246 110,246 110,286 214,286 246,303 214,320 56,320"/>
+    <polygon style="fill:inherit;stroke:inherit" points="235,330 235,150 256,132 278,150 325,232 372,150 394,132 415,150 415,330 373,330 373,214 343,272 307,272 277,214 277,330"/>
+    <polygon style="fill:inherit;stroke:inherit" points="460,140 600,140 624,158 600,176 512,176 512,210 600,210 600,320 460,320 436,302 460,284 548,284 548,250 460,250"/>
+  </g>
+  <use href="#emsGlyphs" x="-40" fill="#ffffff" opacity="0.05"/>
+  <use href="#emsGlyphs" x="-21" fill="#ffffff" opacity="0.09"/>
+  <use href="#emsGlyphs" x="20" y="22" fill="#141414" stroke="#141414" stroke-width="3"/>
+  <use href="#emsGlyphs" x="15" y="17" fill="#1e1e1e" stroke="#1e1e1e" stroke-width="3"/>
+  <use href="#emsGlyphs" x="10" y="11" fill="#272727" stroke="#272727" stroke-width="3"/>
+  <use href="#emsGlyphs" x="5" y="6" fill="#2f2f2f" stroke="#2f2f2f" stroke-width="3"/>
+  <use href="#emsGlyphs" fill="#000000" stroke="#000000" stroke-width="12" stroke-linejoin="miter"/>
+  <use href="#emsGlyphs" fill="#efece6" stroke="#000000" stroke-width="2.5" stroke-linejoin="miter"/>
+  <g stroke="#8d8a82" stroke-width="2" stroke-linecap="round" opacity="0.5" fill="none">
+    <line x1="116" y1="155" x2="186" y2="155"/>
+    <line x1="248" y1="156" x2="248" y2="300"/>
+    <line x1="470" y1="155" x2="582" y2="155"/>
+  </g>
+  <g class="emsGleam" stroke="#ffffff" stroke-width="2" stroke-linecap="round" fill="none">
+    <line x1="70" y1="160" x2="70" y2="312"/>
+    <line x1="478" y1="150" x2="592" y2="150"/>
+  </g>
+</g>
+<text x="40" y="56" font-family="monospace" font-size="12" fill="#5e5e5e" letter-spacing="5" opacity="0.55">UNDERGROUND</text>
+<text x="640" y="412" text-anchor="end" font-family="monospace" font-size="12" fill="#5e5e5e" letter-spacing="3" opacity="0.5">ems · berlin</text>
+</svg>
