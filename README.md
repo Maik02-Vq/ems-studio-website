@@ -18,9 +18,9 @@ Built with zero frameworks. Pure HTML, CSS, JS — shipped via Railway.
 | Layer | Tech |
 |---|---|
 | Frontend | Vanilla HTML · CSS · JS |
-| Fonts | Bebas Neue · DM Mono · DM Sans |
+| Fonts | UI: Bebas Neue · DM Mono · DM Sans — Diary: Caveat · Space Mono · Plus Jakarta Sans |
 | Hosting | Railway (static, `serve`) |
-| Design | Dark grain aesthetic · custom cursor · modal system |
+| Design | Dark grain aesthetic · custom cursor · modal system · animated SVG graffiti hero · 3D flipbook |
 
 ---
 
@@ -30,7 +30,7 @@ Built with zero frameworks. Pure HTML, CSS, JS — shipped via Railway.
 |---|---|---|---|
 | 001 | **Planta Sano** | Mobile · AI Vision · Claude | Garden Tech — phone mockup + video + screenshot slider |
 | 002 | **CiaoLead** | Web · SaaS · B2B | — |
-| 003 | **Project Anchor** | Mobile · AI Agent · Wellness | — |
+| 003 | **Project Anchor** | N8N · React Native · ElevenLabs | Annie's Diary — 3D flipbook (5 leaves · page-flip · ← →) |
 | 004 | **Jonny in the Jungle** | Game · Pixel Art · Pygame | Urban Jungle — screenshots + download guide |
 
 ---
@@ -92,6 +92,48 @@ The site previously had **no** mobile breakpoint — all layouts were desktop-fi
 
 ---
 
+## Session log — 21.06.2026
+
+Two features in one day: the Project Anchor diary modal and an animated graffiti hero.
+
+### ⚓ Project 003 — Project Anchor (Annie's Diary)
+- **Flipbook diary modal** — opens on row click, closes on X / backdrop / Escape (same pattern as the other modals)
+- A real 3D page-flip "book": 5 leaves, each with a front + back face, driven by `perspective` + `transform-style: preserve-3d` + `backface-visibility`
+- Flip with the prev / next buttons **or** the `←` `→` arrow keys — the key listener is scoped to the open modal only, so it never hijacks the rest of the page
+- Resets to page 1 every time it opens
+- Distinct warm palette (cream pages on green `#5AA17E` covers) — kept isolated from the dark site theme by shadowing `--accent` on the modal
+- Fonts added: **Caveat · Space Mono · Plus Jakarta Sans**
+- Mobile: the wide two-page spread scales down (JS-computed `--pa-scale`) so the whole book fits the phone, controls stay tappable below
+
+### 🎨 Hero — animated "EMS" graffiti
+- Replaced the faint ghost "EMS" text with an animated **smoked-brick graffiti** (smoke drift + gleam, CSS animations inside the SVG)
+- Sits on the right, bleeds off the right edge; left-edge `mask-image` fade keeps the headline + subtitle clean
+- Removed the decorative robot SVG — the graffiti owns the right side
+- **Interactive spray-paint** — a spray can draws "EMS" left→right on a loop (clip-path width reveal synced to the can), then restarts from zero
+- Runs **only when the user is "in front of the site"**: hero on-screen (`IntersectionObserver`) **and** tab visible (Page Visibility API). Off-screen / hidden tab → static full EMS, no motion. Respects `prefers-reduced-motion`
+- Inlined the SVG into `index.html` so the draw can be JS-driven (an `<img>` can't be)
+- Mobile: EMS becomes a full-width **banner above** the "Vibe Coding" headline
+
+---
+
+## Session log — 22.06.2026
+
+Row 003 recolor + a mobile-only diary fix.
+
+### ⚓ Project 003 — row recolor
+- Homepage row 003: the **Project Anchor** name tinted dusty terracotta-rose (`#d99c84`)
+- Tags swapped `Mobile / AI Agent / Wellness` → **N8N · React Native · ElevenLabs**, colored green like the other projects
+- The diary/modal palette was left untouched
+
+### 🩹 Diary — mobile 3D face bleed-through fix
+On iOS Safari the flipbook's front and back faces rendered coplanar, so text appeared mirrored / doubled. Fixed (scoped to `@media max-width: 768px`, desktop untouched):
+- Added `-webkit-` prefixes for `transform-style: preserve-3d` and `backface-visibility: hidden` (iOS Safari needs them)
+- Depth-separated the faces so the opaque front always occludes the back: front `translateZ(30px)`, back `rotateY(180deg) translateZ(30px)`
+- Set the modal's open state to `transform: none` so the wrapper no longer flattens the 3D context
+- Kept `perspective` + `preserve-3d` alive at every breakpoint
+
+---
+
 ## Asset files (repo root)
 
 | File | Size | Used in |
@@ -101,6 +143,10 @@ The site previously had **no** mobile breakpoint — all layouts were desktop-fi
 | `planta-sano-diary.png` | ~160KB | Planta Sano slider |
 | `planta-sano-progress.png` | ~51KB | Planta Sano slider |
 | `planta-sano-care.png` | ~127KB | Planta Sano slider |
+| `project-anchor-avatar.png` | ~165KB | Project Anchor diary — cover + journal avatar |
+| `project-anchor-chat.png` | ~505KB | Project Anchor diary — chat / about screens |
+| `project-anchor-voice.png` | ~532KB | Project Anchor diary — voice screen |
+| `ems-hero-graffiti.svg` | ~4KB | Original hero graffiti source (now inlined into `index.html`) |
 
 ---
 
