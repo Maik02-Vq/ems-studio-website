@@ -179,16 +179,14 @@
   @keyframes emsSmoke1 { 0%,100%{transform:translate(0,0);opacity:.12;} 50%{transform:translate(36px,-14px);opacity:.20;} }
   @keyframes emsSmoke2 { 0%,100%{transform:translate(0,0);opacity:.08;} 50%{transform:translate(-30px,-18px);opacity:.15;} }
   @keyframes emsGleam  { 0%,100%{opacity:0;} 50%{opacity:.45;} }
-  @keyframes emsDraw   { 0%{width:0;} 65%,100%{width:680px;} }                 /* reveal L→R */
-  @keyframes emsArtFade{ 0%,86%{opacity:1;} 96%,100%{opacity:0;} }            /* hold, then fade for the restart */
-  @keyframes emsCanMove{ 0%{transform:translateX(0);opacity:0;} 3%{opacity:1;} 65%{transform:translateX(680px);opacity:1;} 71%,100%{transform:translateX(680px);opacity:0;} }
+  @keyframes emsDraw   { from{width:0;} to{width:680px;} }                     /* spray L→R, then restart from zero — no hold, no flash */
+  @keyframes emsCanMove{ 0%{transform:translateX(0);opacity:0;} 3%{opacity:1;} 95%{transform:translateX(646px);opacity:1;} 100%{transform:translateX(680px);opacity:0;} }
   @keyframes emsSprayFlicker { 0%,100%{opacity:.55;} 50%{opacity:1;} }
 
   .hero-graffiti .emsS1, .hero-graffiti .emsS2 { transform-origin: center; }
   .hero-graffiti .emsCan { opacity: 0; }                                       /* hidden until live */
 
   .hero-graffiti.is-live .emsWipeRect { animation: emsDraw 7s linear infinite; }
-  .hero-graffiti.is-live .emsArt      { animation: emsArtFade 7s linear infinite; }
   .hero-graffiti.is-live .emsCan      { animation: emsCanMove 7s linear infinite; }
   .hero-graffiti.is-live .emsSpray    { animation: emsSprayFlicker .28s steps(2,end) infinite; }
   .hero-graffiti.is-live .emsS1       { animation: emsSmoke1 9s ease-in-out infinite; }
@@ -197,7 +195,6 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero-graffiti.is-live .emsWipeRect,
-    .hero-graffiti.is-live .emsArt,
     .hero-graffiti.is-live .emsCan,
     .hero-graffiti.is-live .emsSpray,
     .hero-graffiti.is-live .emsS1,
@@ -1320,8 +1317,15 @@
 
     /* HERO */
     .hero { padding: 0 24px 48px; min-height: 90vh; }
-    /* graffiti: fainter + pushed further right so it doesn't fight the headline */
-    .hero-graffiti { opacity: 0.35; left: 55%; right: -10%; }
+    /* graffiti: EMS becomes a banner ABOVE the Vibe Coding headline (same spray effect) */
+    .hero-graffiti {
+      top: 9%; bottom: auto;
+      left: 0; right: 0;
+      width: 100%; height: auto;
+      opacity: 0.9;
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
     .hero-scroll { display: none; }
     .hero-title { font-size: clamp(56px, 18vw, 80px); margin-bottom: 24px; }
     .hero-eyebrow { margin-bottom: 16px; }
