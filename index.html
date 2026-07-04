@@ -426,12 +426,12 @@
     font-family: var(--display);
     font-size: 36px;
     letter-spacing: -0.01em;
-    color: var(--white);
+    color: var(--light);
     line-height: 1;
     margin-bottom: 6px;
     transition: color 0.2s;
   }
-  .project-row:hover .project-name { color: var(--accent); }
+  .project-row:hover .project-name { color: var(--white); }
   .project-desc {
     font-size: 13px;
     font-weight: 300;
@@ -448,8 +448,8 @@
     font-family: var(--mono);
     font-size: 10px;
     font-weight: 300;
-    color: var(--muted);
-    border: 1px solid rgba(240,237,232,0.12);
+    color: #6eff2a;
+    border: 1px solid rgba(110,255,42,0.25);
     padding: 4px 10px;
     border-radius: 1px;
     letter-spacing: 0.06em;
@@ -665,8 +665,6 @@
 
   /* project row game variant */
   .project-row--game { cursor: none; }
-  .project-row--game .project-name { color: #c8f0a0; }
-  .project-row--game:hover .project-name { color: #a8e070; }
   .project-tag--game { color: #6eff2a !important; border-color: rgba(110,255,42,0.25) !important; }
 
   /* JONNY MODAL */
@@ -1614,13 +1612,13 @@
     <div class="project-row project-row--game" id="ps-row" data-emoji="🌱" role="button" tabindex="0" aria-haspopup="dialog">
       <span class="project-num">001</span>
       <div class="project-main">
-        <div class="project-name" style="color:#a7f3d0;">Planta Sano</div>
+        <div class="project-name">Planta Sano</div>
         <div class="project-desc">AI plant health assistant — diagnose, care, and grow with Claude Vision.</div>
       </div>
       <div class="project-tags">
-        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">Mobile</span>
-        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">AI Vision</span>
-        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">Claude</span>
+        <span class="project-tag">Mobile</span>
+        <span class="project-tag">AI Vision</span>
+        <span class="project-tag">Claude</span>
       </div>
       <div class="project-arrow">→</div>
     </div>
@@ -1640,13 +1638,13 @@
     <div class="project-row" id="pa-row" data-emoji="⚓" role="button" tabindex="0" aria-haspopup="dialog">
       <span class="project-num">003</span>
       <div class="project-main">
-        <div class="project-name" style="color:#d99c84;">Project Anchor</div>
+        <div class="project-name">Project Anchor</div>
         <div class="project-desc">Annie — personal AI agent for anxiety management. Daily support, grounding tools.</div>
       </div>
       <div class="project-tags">
-        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">N8N</span>
-        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">React Native</span>
-        <span class="project-tag" style="color:#4ade80;border-color:rgba(74,222,128,0.25);">ElevenLabs</span>
+        <span class="project-tag">N8N</span>
+        <span class="project-tag">React Native</span>
+        <span class="project-tag">ElevenLabs</span>
       </div>
       <div class="project-arrow">→</div>
     </div>
