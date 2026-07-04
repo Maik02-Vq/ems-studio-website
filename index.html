@@ -43,24 +43,28 @@
   /* Custom cursor */
   .cursor {
     position: fixed;
+    left: 0; top: 0;
     width: 8px; height: 8px;
     background: var(--white);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width 0.2s, height 0.2s, background 0.2s;
     mix-blend-mode: difference;
+    will-change: transform;
   }
   .cursor-ring {
     position: fixed;
+    left: 0; top: 0;
     width: 36px; height: 36px;
     border: 1px solid rgba(240,237,232,0.4);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease-out, width 0.25s, height 0.25s, opacity 0.2s, background 0.2s, border-color 0.2s;
+    transform: translate3d(-50%, -50%, 0);
+    transition: width 0.25s, height 0.25s, opacity 0.2s, background 0.2s, border-color 0.2s;
+    will-change: transform;
   }
   .cursor-ring.filled {
     background: rgba(240,237,232,0.12);
@@ -173,33 +177,48 @@
   }
 
   /* ---- Interactive spray-paint loop ----
-     Animations run ONLY when JS adds .is-live (hero on-screen AND tab in front).
-     When not live (off-screen / hidden tab / before JS / reduced-motion) the
-     rect attr width=680 leaves the EMS fully painted and static, can hidden. */
+     Animations are ALWAYS applied but start PAUSED. JS adds .is-live (hero on-screen
+     AND tab in front) to RUN them, and removes it to PAUSE (freeze the current frame).
+     So scrolling away freezes the draw and scrolling back RESUMES it — no restart,
+     no full-EMS flash, smooth re-entry. Reduced-motion disables them, so the rect's
+     attr width=680 shows a static, fully-painted EMS. */
   @keyframes emsSmoke1 { 0%,100%{transform:translate(0,0);opacity:.12;} 50%{transform:translate(36px,-14px);opacity:.20;} }
   @keyframes emsSmoke2 { 0%,100%{transform:translate(0,0);opacity:.08;} 50%{transform:translate(-30px,-18px);opacity:.15;} }
   @keyframes emsGleam  { 0%,100%{opacity:0;} 50%{opacity:.45;} }
-  @keyframes emsDraw   { from{width:0;} to{width:680px;} }                     /* spray L→R, then restart from zero — no hold, no flash */
+  @keyframes emsDraw   { from{width:0;} to{width:680px;} }                     /* spray L→R, then restart from zero */
   @keyframes emsCanMove{ 0%{transform:translateX(0);opacity:0;} 3%{opacity:1;} 95%{transform:translateX(646px);opacity:1;} 100%{transform:translateX(680px);opacity:0;} }
   @keyframes emsSprayFlicker { 0%,100%{opacity:.55;} 50%{opacity:1;} }
 
   .hero-graffiti .emsS1, .hero-graffiti .emsS2 { transform-origin: center; }
-  .hero-graffiti .emsCan { opacity: 0; }                                       /* hidden until live */
+  .hero-graffiti .emsCan { opacity: 0; }                                       /* hidden until the can animation runs */
 
-  .hero-graffiti.is-live .emsWipeRect { animation: emsDraw 7s linear infinite; }
-  .hero-graffiti.is-live .emsCan      { animation: emsCanMove 7s linear infinite; }
-  .hero-graffiti.is-live .emsSpray    { animation: emsSprayFlicker .28s steps(2,end) infinite; }
-  .hero-graffiti.is-live .emsS1       { animation: emsSmoke1 9s ease-in-out infinite; }
-  .hero-graffiti.is-live .emsS2       { animation: emsSmoke2 12s ease-in-out infinite; }
-  .hero-graffiti.is-live .emsGleam    { animation: emsGleam 6s ease-in-out infinite; }
+  .hero-graffiti .emsWipeRect { animation: emsDraw 7s linear infinite; }
+  .hero-graffiti .emsCan      { animation: emsCanMove 7s linear infinite; will-change: transform; }
+  .hero-graffiti .emsSpray    { animation: emsSprayFlicker .28s steps(2,end) infinite; }
+  .hero-graffiti .emsS1       { animation: emsSmoke1 9s ease-in-out infinite; will-change: transform; }
+  .hero-graffiti .emsS2       { animation: emsSmoke2 12s ease-in-out infinite; will-change: transform; }
+  .hero-graffiti .emsGleam    { animation: emsGleam 6s ease-in-out infinite; }
+  /* default paused (frozen); JS flips play-state via .is-live — no restart on re-entry */
+  .hero-graffiti .emsWipeRect,
+  .hero-graffiti .emsCan,
+  .hero-graffiti .emsSpray,
+  .hero-graffiti .emsS1,
+  .hero-graffiti .emsS2,
+  .hero-graffiti .emsGleam { animation-play-state: paused; }
+  .hero-graffiti.is-live .emsWipeRect,
+  .hero-graffiti.is-live .emsCan,
+  .hero-graffiti.is-live .emsSpray,
+  .hero-graffiti.is-live .emsS1,
+  .hero-graffiti.is-live .emsS2,
+  .hero-graffiti.is-live .emsGleam { animation-play-state: running; }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-graffiti.is-live .emsWipeRect,
-    .hero-graffiti.is-live .emsCan,
-    .hero-graffiti.is-live .emsSpray,
-    .hero-graffiti.is-live .emsS1,
-    .hero-graffiti.is-live .emsS2,
-    .hero-graffiti.is-live .emsGleam { animation: none; }
+    .hero-graffiti .emsWipeRect,
+    .hero-graffiti .emsCan,
+    .hero-graffiti .emsSpray,
+    .hero-graffiti .emsS1,
+    .hero-graffiti .emsS2,
+    .hero-graffiti .emsGleam { animation: none; }
   }
 
   /* Horizontal line across hero */
@@ -2523,22 +2542,20 @@
 <script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
-  let mx = 0, my = 0, rx = 0, ry = 0;
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2, rx = mx, ry = my;
 
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
 
-  function animateRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animateRing);
+  // One rAF loop, GPU transforms only (no left/top → no per-frame layout).
+  // Dot tracks the pointer 1:1; ring trails with a smooth lerp.
+  function renderCursor() {
+    cursor.style.transform = 'translate3d(' + mx + 'px,' + my + 'px,0) translate(-50%,-50%)';
+    rx += (mx - rx) * 0.18;
+    ry += (my - ry) * 0.18;
+    ring.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) translate(-50%,-50%)';
+    requestAnimationFrame(renderCursor);
   }
-  animateRing();
+  renderCursor();
 
   // Project row hover — fill cursor ring
   const projectRows = document.querySelectorAll('.project-row');
