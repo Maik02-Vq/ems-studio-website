@@ -1,15 +1,17 @@
-# ems_studio — Portfolio Website
+# Echo Maik Studio (EMS) — Portfolio Website
 
-> Solo. From spark to ship.
+> Echoes of a maker. Vibe coding all the way.
 
 ---
 
 ## What is this?
 
-Personal portfolio for **ems_studio** (Maik), an independent maker based in Berlin.  
+Personal portfolio for **Echo Maik Studio (EMS)** — Maik, an independent maker based in Berlin.  
 A single-page site showcasing AI-native apps, mobile products, web tools — and games.
 
 Built with zero frameworks. Pure HTML, CSS, JS — shipped via Railway.
+
+**Brand:** the wordmark is **echo_maik_studio** (with the **"ai"** in *maik* in accent green `#4ade80` as an easter egg); **EMS** is used standalone. Target domain `echomaik.studio` (not yet purchased) · `echomaikstudio@gmail.com` · Instagram [@echomaikstudio](https://instagram.com/echomaikstudio).
 
 ---
 
@@ -32,6 +34,8 @@ Built with zero frameworks. Pure HTML, CSS, JS — shipped via Railway.
 | 002 | **CiaoLead** | Web · SaaS · B2B | — |
 | 003 | **Project Anchor** | N8N · React Native · ElevenLabs | Annie's Diary — 3D flipbook (5 leaves · page-flip · ← →) |
 | 004 | **Jonny in the Jungle** | Game · Pixel Art · Pygame | Urban Jungle — screenshots + download guide |
+
+> Row titles are uniform grey `#c8c8c8` (lighten to off-white on hover); tags are all acid green `#6eff2a`. Each project's own colour lives inside its modal.
 
 ---
 
@@ -134,6 +138,25 @@ On iOS Safari the flipbook's front and back faces rendered coplanar, so text app
 
 ---
 
+## Session log — 04.07.2026
+
+Rebrand to **Echo Maik Studio** + a unified project-row colour system.
+
+### 🏷️ Rebrand — ems_studio → Echo Maik Studio
+- Wordmark `echo_maik_studio` in the nav + footer, with the **"ai"** in *maik* highlighted green `#4ade80` (easter egg); `EMS` used standalone in the eyebrow, About and footer
+- Hero headline `Vibe / Coding.` → **`Echoes / of a maker`** (Bebas Neue, solid + outline) — reduced the title clamp (`60 / 8.2vw / 106px`) so it no longer clashes with the EMS graffiti
+- Subtitle now carries the **"vibe coding"** line; hero eyebrow → `EMS · Est. 2024 · Berlin, DE`
+- Contact: email → `echomaikstudio@gmail.com`; removed the X link, added **Instagram** `@echomaikstudio`
+- `<title>` → `Echo Maik Studio — Maik`; About · Studio value → `EMS`
+- Graffiti: removed the `UNDERGROUND` tag (artwork, smoke, `ems · berlin` tag + animation untouched)
+
+### 🎨 Project rows — unified colours
+- All four project titles render **uniform grey `#c8c8c8`**, lightening to off-white on hover (dropped the per-project inline title colours + the `--game` title rules — supersedes the terracotta `003` name)
+- All tags now **acid green `#6eff2a`** with a green border, on every project
+- Per-project colour stays inside each project's modal (diary terracotta, Garden Tech green, Urban Jungle acid green)
+
+---
+
 ## Asset files (repo root)
 
 | File | Size | Used in |
@@ -167,4 +190,4 @@ No build step. No bundler. Just `serve .`
 
 ---
 
-<sub>ems_studio · Berlin · 2026</sub>
+<sub>Echo Maik Studio · EMS · Berlin · 2026</sub>
