@@ -20,7 +20,7 @@ Built with zero frameworks. Pure HTML, CSS, JS — shipped via Railway.
 | Layer | Tech |
 |---|---|
 | Frontend | Vanilla HTML · CSS · JS |
-| Fonts | UI: Bebas Neue · DM Mono · DM Sans — Diary: Caveat · Space Mono · Plus Jakarta Sans |
+| Fonts | UI: Bebas Neue · DM Mono · DM Sans — Diary: Caveat · Space Mono · Plus Jakarta Sans — Dream CV: Share Tech Mono · Rajdhani |
 | Hosting | Railway (static, `serve`) |
 | Design | Dark grain aesthetic · custom cursor · modal system · animated SVG graffiti hero · 3D flipbook |
 
@@ -34,6 +34,7 @@ Built with zero frameworks. Pure HTML, CSS, JS — shipped via Railway.
 | 002 | **CiaoLead** | Web · SaaS · B2B | — |
 | 003 | **Project Anchor** | N8N · React Native · ElevenLabs | Annie's Diary — 3D flipbook (5 leaves · page-flip · ← →) |
 | 004 | **Jonny in the Jungle** | Game · Pixel Art · Pygame | Urban Jungle — screenshots + download guide |
+| 005 | **Dream-CV** | Web · AI · Claude · Live | Dream CV — live "tailoring" reel: JD keywords light up → redacted CV builds → match-score gauge |
 
 > Row titles are uniform grey `#c8c8c8` (lighten to off-white on hover); tags are all acid green `#6eff2a`. Each project's own colour lives inside its modal.
 
@@ -154,6 +155,13 @@ Rebrand to **Echo Maik Studio** + a unified project-row colour system.
 - All four project titles render **uniform grey `#c8c8c8`**, lightening to off-white on hover (dropped the per-project inline title colours + the `--game` title rules — supersedes the terracotta `003` name)
 - All tags now **acid green `#6eff2a`** with a green border, on every project
 - Per-project colour stays inside each project's modal (diary terracotta, Garden Tech green, Urban Jungle acid green)
+
+### 🧬 Project 005 — Dream CV
+- New **005 "Dream-CV"** row (built with my `project-row` classes) opening a self-contained **live-app modal**, lifted **verbatim** from a Claude Design export — its own neon-green micro-aesthetic (Share Tech Mono + Rajdhani, film grain, glow)
+- **"Tailoring" reel** on open: the job description types in → keywords light up → a data spine pulses → the redacted CV builds section by section → matched skills glow → a match-score gauge + factor bars animate in. The role chips (Product Designer / Growth Lead / Frontend Engineer) re-run it
+- The CV is an abstract **"redacted"** document (blurred bars, never real data) — no screenshots
+- Opens on row click, closes on ✕ / backdrop / Escape, locks body scroll; only change to the lift was `z-index 900 → 1000` to match the other modals; `≤600px` collapses to a single column
+- "Try it live" → the real app on Railway. The design reference `_dream-cv-modal.html` is **git-ignored** — never deployed
 
 ---
 
