@@ -1,1 +1,4 @@
 node_modules/
+
+# Dream CV design reference — never deploy (kept local only)
+_dream-cv-modal.html

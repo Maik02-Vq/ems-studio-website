@@ -6,7 +6,7 @@
 <title>Echo Maik Studio — Maik</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <!-- Project Anchor diary fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Space+Mono:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -1464,6 +1464,288 @@
     background: var(--dark);
     color: var(--white);
   }
+
+  /* ============================================================
+     DREAM CV (005) — modal lifted verbatim from _dream-cv-modal.html
+     (reference only). Only change: .dcv-overlay z-index 900 -> 1000.
+     ============================================================ */
+  /* modal colour tokens — required by every var(--dc-*) in the modal */
+  :root{
+    --dc-bg:#08090a;
+    --dc-surface:#0d100f;
+    --dc-panel:#0a0d0c;
+    --dc-line:rgba(0,255,180,.14);
+    --dc-green:#00ffb4;
+    --dc-cyan:#25d0ff;
+    --dc-ink:#e9efeb;
+    --dc-mut:#69766f;
+    --dc-mut2:#414b46;
+  }
+  /* re-establish the demo <body> base (font + ink) on the modal, since we skip that body */
+  .dcv-modal{font-family:'Rajdhani',system-ui,sans-serif;color:var(--dc-ink)}
+
+  /* backdrop */
+  .dcv-overlay{
+    position:fixed;inset:0;z-index:1000;
+    display:flex;align-items:center;justify-content:center;
+    padding:24px;
+    background:rgba(3,5,4,.72);
+    backdrop-filter:blur(6px) saturate(.9);
+    -webkit-backdrop-filter:blur(6px) saturate(.9);
+    opacity:0;pointer-events:none;
+    transition:opacity .34s ease;
+  }
+  .dcv-overlay.open{opacity:1;pointer-events:auto}
+
+  /* modal shell */
+  .dcv-modal{
+    position:relative;
+    width:100%;max-width:760px;max-height:90vh;
+    overflow-y:auto;overflow-x:hidden;
+    background:
+      radial-gradient(120% 80% at 82% -8%, rgba(0,255,180,.10), transparent 46%),
+      radial-gradient(90% 70% at -10% 110%, rgba(37,208,255,.07), transparent 50%),
+      var(--dc-surface);
+    border:1px solid var(--dc-line);
+    border-radius:6px;
+    box-shadow:0 40px 120px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,.02) inset;
+    transform:translateY(22px) scale(.985);
+    opacity:0;
+    transition:transform .4s cubic-bezier(.16,1,.3,1),opacity .34s ease;
+    scrollbar-width:thin;scrollbar-color:rgba(0,255,180,.3) transparent;
+  }
+  .dcv-overlay.open .dcv-modal{transform:none;opacity:1}
+  .dcv-modal::-webkit-scrollbar{width:8px}
+  .dcv-modal::-webkit-scrollbar-thumb{background:rgba(0,255,180,.22);border-radius:8px}
+
+  /* film grain */
+  .dcv-grain{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    opacity:.05;mix-blend-mode:screen;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    animation:dcvGrain .5s steps(2) infinite;
+  }
+  @keyframes dcvGrain{
+    0%{transform:translate(0,0)}25%{transform:translate(-4%,2%)}
+    50%{transform:translate(3%,-3%)}75%{transform:translate(-2%,4%)}100%{transform:translate(0,0)}
+  }
+
+  .dcv-inner{position:relative;z-index:3;padding:30px clamp(22px,4vw,40px) 34px}
+
+  /* close */
+  .dcv-close{
+    position:absolute;top:14px;right:14px;z-index:5;
+    width:34px;height:34px;border-radius:4px;
+    display:flex;align-items:center;justify-content:center;
+    background:rgba(0,0,0,.35);border:1px solid var(--dc-line);
+    color:var(--dc-mut);font-size:15px;cursor:pointer;
+    font-family:'Share Tech Mono',monospace;
+    transition:color .2s,border-color .2s,background .2s;
+  }
+  .dcv-close:hover{color:var(--dc-green);border-color:rgba(0,255,180,.5);background:rgba(0,255,180,.08)}
+
+  /* header */
+  .dcv-kicker{font-family:'Share Tech Mono',monospace;font-size:10.5px;letter-spacing:.26em;color:var(--dc-green);text-transform:uppercase;display:flex;align-items:center;gap:9px}
+  .dcv-dot{width:6px;height:6px;border-radius:50%;background:var(--dc-green);box-shadow:0 0 10px var(--dc-green);animation:dcvPulse 1.6s ease-in-out infinite}
+  @keyframes dcvPulse{0%,100%{opacity:1}50%{opacity:.3}}
+  .dcv-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,9vw,72px);line-height:.86;letter-spacing:.01em;margin:12px 0 8px}
+  .dcv-title b{color:var(--dc-green);font-weight:400}
+  .dcv-sub{color:var(--dc-mut);font-size:15px;max-width:44ch;line-height:1.45}
+
+  /* role selector */
+  .dcv-tailor{margin:24px 0 4px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+  .dcv-tailor-lab{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:.2em;color:var(--dc-mut);text-transform:uppercase;margin-right:2px}
+  .dcv-chip{
+    font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:.06em;
+    padding:7px 13px;border-radius:3px;cursor:pointer;text-transform:uppercase;
+    background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.09);
+    color:var(--dc-mut);transition:all .2s ease;white-space:nowrap;
+  }
+  .dcv-chip:hover{color:var(--dc-ink);border-color:rgba(0,255,180,.35)}
+  .dcv-chip.active{
+    color:#04120c;background:var(--dc-green);border-color:var(--dc-green);
+    box-shadow:0 0 22px -4px rgba(0,255,180,.6);
+  }
+
+  /* stage grid */
+  .dcv-stage{
+    margin-top:20px;
+    display:grid;grid-template-columns:1fr 46px 1fr;gap:0;
+    border:1px solid var(--dc-line);border-radius:5px;overflow:hidden;
+    background:var(--dc-panel);
+  }
+  .dcv-pane{padding:16px 16px 18px;min-width:0}
+  .dcv-pane-head{
+    font-family:'Share Tech Mono',monospace;font-size:9.5px;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--dc-mut);margin-bottom:12px;
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+  }
+  .dcv-pane-head span{color:var(--dc-mut2)}
+
+  /* --- JD pane --- */
+  .dcv-jd{border-right:1px solid var(--dc-line);background:linear-gradient(180deg,rgba(255,255,255,.012),transparent)}
+  .dcv-jd-line{
+    font-family:'Share Tech Mono',monospace;font-size:11px;line-height:1.85;
+    color:var(--dc-mut);opacity:0;transform:translateX(-6px);
+    transition:opacity .3s ease,transform .3s ease;
+  }
+  .dcv-jd-line.show{opacity:1;transform:none}
+  .kw{
+    color:var(--dc-ink);position:relative;padding:1px 2px;border-radius:2px;
+    transition:all .35s ease;
+  }
+  .kw.lit{
+    color:var(--dc-green);background:rgba(0,255,180,.12);
+    box-shadow:0 0 0 1px rgba(0,255,180,.4);text-shadow:0 0 12px rgba(0,255,180,.5);
+  }
+
+  /* --- data spine --- */
+  .dcv-spine{
+    position:relative;border-left:1px solid var(--dc-line);border-right:1px solid var(--dc-line);
+    overflow:hidden;background:rgba(0,0,0,.25);
+  }
+  .dcv-spine::before{
+    content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;
+    transform:translateX(-.5px);
+    background:repeating-linear-gradient(180deg,rgba(0,255,180,.5) 0 6px,transparent 6px 14px);
+    background-size:1px 20px;animation:dcvFlow 1s linear infinite;opacity:.4;
+  }
+  .dcv-stage.running .dcv-spine::before{opacity:1}
+  @keyframes dcvFlow{to{background-position:0 20px}}
+  .dcv-core{
+    position:absolute;left:50%;top:50%;width:26px;height:26px;
+    transform:translate(-50%,-50%);border-radius:50%;
+    border:1px solid rgba(0,255,180,.5);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--dc-green);font-family:'Share Tech Mono',monospace;font-size:12px;
+    background:radial-gradient(circle,rgba(0,255,180,.18),transparent 70%);
+  }
+  .dcv-stage.running .dcv-core{animation:dcvSpin 2.4s linear infinite}
+  @keyframes dcvSpin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+
+  /* --- CV pane (the redacted document) --- */
+  .dcv-cv{position:relative}
+  .dcv-doc{
+    position:relative;background:#0c100e;border:1px solid rgba(255,255,255,.05);
+    border-radius:3px;padding:14px 13px;overflow:hidden;
+  }
+  /* scanline sweeping over the doc while tailoring */
+  .dcv-scan{
+    position:absolute;left:0;right:0;height:64px;top:-70px;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(0,255,180,.16),transparent);
+    opacity:0;
+  }
+  .dcv-stage.running .dcv-scan{animation:dcvSweep 1.9s ease-in-out infinite;opacity:1}
+  @keyframes dcvSweep{0%{top:-70px}100%{top:100%}}
+
+  .dcv-doc-name{display:flex;flex-direction:column;gap:6px;margin-bottom:11px}
+  /* redaction: personal data — blurred + frosted, never readable */
+  .redact{
+    height:12px;border-radius:2px;position:relative;overflow:hidden;
+    background:linear-gradient(90deg,rgba(233,239,235,.22),rgba(233,239,235,.10));
+    filter:blur(1.4px);
+  }
+  .redact::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);
+    transform:translateX(-100%);animation:dcvShimmer 2.8s ease-in-out infinite;
+  }
+  @keyframes dcvShimmer{0%{transform:translateX(-100%)}60%,100%{transform:translateX(100%)}}
+  .redact.big{height:22px;width:62%}
+  .redact.thin{height:8px}
+  .redact.contact{width:80%;height:8px;filter:blur(1.1px)}
+
+  .dcv-doc-sec{margin-top:12px;opacity:0;transform:translateY(6px);transition:opacity .4s,transform .4s}
+  .dcv-doc-sec.built{opacity:1;transform:none}
+  .dcv-sec-lab{font-family:'Share Tech Mono',monospace;font-size:8.5px;letter-spacing:.2em;color:var(--dc-green);text-transform:uppercase;margin-bottom:7px}
+  .dcv-rows{display:flex;flex-direction:column;gap:6px}
+  .dcv-row{display:flex;gap:6px;align-items:center}
+  .dcv-row .redact{flex:1}
+
+  /* skill chips inside CV — matched ones glow */
+  .dcv-skills{display:flex;flex-wrap:wrap;gap:5px}
+  .dcv-sk{
+    font-family:'Share Tech Mono',monospace;font-size:8.5px;letter-spacing:.05em;
+    padding:3px 7px;border-radius:2px;text-transform:uppercase;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    color:var(--dc-mut);transition:all .4s ease;
+  }
+  .dcv-sk.match{
+    color:#04120c;background:var(--dc-green);border-color:var(--dc-green);
+    box-shadow:0 0 16px -3px rgba(0,255,180,.6);
+  }
+  /* "REDACTED" watermark stamp on the doc */
+  .dcv-stamp{
+    position:absolute;right:9px;bottom:8px;z-index:4;
+    font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:.22em;
+    color:rgba(0,255,180,.55);border:1px solid rgba(0,255,180,.3);
+    padding:2px 6px;border-radius:2px;text-transform:uppercase;
+    background:rgba(0,0,0,.4);
+  }
+
+  /* ---- score strip ---- */
+  .dcv-score{
+    margin-top:20px;display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;
+    border:1px solid var(--dc-line);border-radius:5px;padding:18px 20px;
+    background:linear-gradient(90deg,rgba(0,255,180,.05),transparent 60%),var(--dc-panel);
+  }
+  .dcv-gauge{position:relative;width:150px;flex:none}
+  .dcv-gauge svg{display:block;width:150px;height:88px;overflow:visible}
+  .dcv-gauge-val{
+    position:absolute;left:0;right:0;bottom:2px;text-align:center;
+    font-family:'Bebas Neue',sans-serif;line-height:1;
+  }
+  .dcv-gauge-num{font-size:46px;color:var(--dc-green);text-shadow:0 0 22px rgba(0,255,180,.5)}
+  .dcv-gauge-num i{font-size:20px;font-style:normal;color:var(--dc-mut)}
+  .dcv-gauge-lab{font-family:'Share Tech Mono',monospace;font-size:8.5px;letter-spacing:.24em;color:var(--dc-mut);text-transform:uppercase;margin-top:2px}
+
+  .dcv-factors{display:flex;flex-direction:column;gap:9px;min-width:0}
+  .dcv-fac{display:grid;grid-template-columns:96px 1fr 30px;gap:10px;align-items:center}
+  .dcv-fac-lab{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--dc-mut);text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dcv-bar{height:5px;border-radius:3px;background:rgba(255,255,255,.06);overflow:hidden}
+  .dcv-bar-fill{height:100%;width:0;border-radius:3px;background:linear-gradient(90deg,var(--dc-cyan),var(--dc-green));transition:width 1s cubic-bezier(.16,1,.3,1);box-shadow:0 0 12px rgba(0,255,180,.4)}
+  .dcv-fac-num{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dc-ink);text-align:right}
+
+  /* ---- CTA ---- */
+  .dcv-cta{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+  .dcv-cta-txt{max-width:34ch}
+  .dcv-cta-txt b{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:24px;letter-spacing:.02em;display:block;color:var(--dc-ink)}
+  .dcv-cta-txt span{color:var(--dc-mut);font-size:13.5px}
+  .dcv-btn{
+    font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:.1em;text-transform:uppercase;
+    text-decoration:none;color:#04120c;background:var(--dc-green);
+    padding:14px 22px;border-radius:4px;display:inline-flex;align-items:center;gap:9px;
+    transition:transform .18s ease,box-shadow .25s ease;white-space:nowrap;
+    box-shadow:0 0 0 rgba(0,255,180,0);
+  }
+  .dcv-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px -6px rgba(0,255,180,.55)}
+  .dcv-btn .ar{transition:transform .18s ease}
+  .dcv-btn:hover .ar{transform:translateX(4px)}
+
+  .dcv-footline{
+    margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);
+    font-family:'Share Tech Mono',monospace;font-size:9.5px;letter-spacing:.18em;
+    color:var(--dc-mut2);text-transform:uppercase;
+  }
+
+  body.dcv-locked{overflow:hidden}
+
+  /* ---- responsive: single column ≤600px ---- */
+  @media (max-width:600px){
+    .dcv-overlay{padding:0}
+    .dcv-modal{max-width:100%;max-height:100vh;height:100vh;border-radius:0;border-left:none;border-right:none}
+    .dcv-stage{grid-template-columns:1fr}
+    .dcv-jd{border-right:none;border-bottom:1px solid var(--dc-line)}
+    .dcv-spine{display:none}
+    .dcv-score{grid-template-columns:1fr;justify-items:center;text-align:center}
+    .dcv-factors{width:100%}
+    .dcv-fac{grid-template-columns:86px 1fr 28px}
+    .dcv-cta{flex-direction:column;align-items:flex-start}
+    .dcv-btn{width:100%;justify-content:center}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .dcv-grain,.dcv-core,.dcv-scan,.redact::after,.dcv-spine::before{animation:none!important}
+  }
 </style>
 </head>
 <body>
@@ -1606,7 +1888,7 @@
 <section id="projects">
   <div class="section-header">
     <h2 class="section-title">Projects</h2>
-    <span class="section-count">004 works</span>
+    <span class="section-count">005 works</span>
   </div>
   <div class="projects-list">
     <div class="project-row project-row--game" id="ps-row" data-emoji="🌱" role="button" tabindex="0" aria-haspopup="dialog">
@@ -1658,6 +1940,20 @@
         <span class="project-tag project-tag--game">Game</span>
         <span class="project-tag project-tag--game">Pixel Art</span>
         <span class="project-tag project-tag--game">Pygame</span>
+      </div>
+      <div class="project-arrow">→</div>
+    </div>
+    <div class="project-row" data-open-dreamcv role="button" tabindex="0" aria-haspopup="dialog">
+      <span class="project-num">005</span>
+      <div class="project-main">
+        <div class="project-name">Dream CV</div>
+        <div class="project-desc">AI that rewrites your CV for each job — and scores the match.</div>
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Web</span>
+        <span class="project-tag">AI</span>
+        <span class="project-tag">Claude</span>
+        <span class="project-tag">Live</span>
       </div>
       <div class="project-arrow">→</div>
     </div>
@@ -2040,6 +2336,100 @@
   </div>
 </div>
 
+<!-- ==================== DREAM CV MODAL (lifted from _dream-cv-modal.html) ==================== -->
+<div class="dcv-overlay" id="dcvOverlay" aria-hidden="true">
+  <div class="dcv-modal" role="dialog" aria-modal="true" aria-label="Dream CV">
+    <div class="dcv-grain"></div>
+    <button class="dcv-close" id="dcvClose" aria-label="Close">✕</button>
+
+    <div class="dcv-inner">
+      <div class="dcv-kicker"><span class="dcv-dot"></span> echo maik studio · 005 — live app</div>
+      <h2 class="dcv-title">DREAM <b>CV</b></h2>
+      <p class="dcv-sub">One profile in. A CV re-crafted for the exact role — and a match score — out. Watch it tailor.</p>
+
+      <!-- role selector -->
+      <div class="dcv-tailor">
+        <span class="dcv-tailor-lab">Tailoring for</span>
+        <button class="dcv-chip active" data-role="0">Product Designer</button>
+        <button class="dcv-chip" data-role="1">Growth Lead</button>
+        <button class="dcv-chip" data-role="2">Frontend Engineer</button>
+      </div>
+
+      <!-- stage -->
+      <div class="dcv-stage" id="dcvStage">
+        <!-- JD -->
+        <div class="dcv-pane dcv-jd">
+          <div class="dcv-pane-head">Job Description <span>/ input</span></div>
+          <div id="dcvJd"></div>
+        </div>
+        <!-- spine -->
+        <div class="dcv-pane dcv-spine"><div class="dcv-core">✦</div></div>
+        <!-- CV -->
+        <div class="dcv-pane dcv-cv">
+          <div class="dcv-pane-head">Tailored CV <span>/ output</span></div>
+          <div class="dcv-doc">
+            <div class="dcv-scan"></div>
+            <div class="dcv-stamp">redacted</div>
+            <div class="dcv-doc-name">
+              <div class="redact big"></div>
+              <div class="redact contact"></div>
+            </div>
+            <div class="dcv-doc-sec" data-sec="0">
+              <div class="dcv-sec-lab" id="dcvTargetLab">Summary — Product Designer</div>
+              <div class="dcv-rows">
+                <div class="dcv-row"><div class="redact thin"></div></div>
+                <div class="dcv-row"><div class="redact thin" style="max-width:88%"></div></div>
+              </div>
+            </div>
+            <div class="dcv-doc-sec" data-sec="1">
+              <div class="dcv-sec-lab">Experience</div>
+              <div class="dcv-rows">
+                <div class="dcv-row"><div class="redact thin" style="max-width:44%"></div><div class="redact thin" style="max-width:30%;margin-left:auto;filter:blur(1.1px)"></div></div>
+                <div class="dcv-row"><div class="redact thin" style="max-width:70%"></div></div>
+                <div class="dcv-row"><div class="redact thin" style="max-width:58%"></div></div>
+              </div>
+            </div>
+            <div class="dcv-doc-sec" data-sec="2">
+              <div class="dcv-sec-lab">Skills — matched to role</div>
+              <div class="dcv-skills" id="dcvSkills"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- score -->
+      <div class="dcv-score">
+        <div class="dcv-gauge">
+          <svg viewBox="0 0 150 88">
+            <path d="M12 84 A63 63 0 0 1 138 84" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="9" stroke-linecap="round"/>
+            <path id="dcvArc" d="M12 84 A63 63 0 0 1 138 84" fill="none" stroke="url(#dcvGrad)" stroke-width="9" stroke-linecap="round" pathLength="100" stroke-dasharray="100" stroke-dashoffset="100" style="filter:drop-shadow(0 0 6px rgba(0,255,180,.6));transition:stroke-dashoffset 1.2s cubic-bezier(.16,1,.3,1)"/>
+            <defs>
+              <linearGradient id="dcvGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#25d0ff"/><stop offset="1" stop-color="#00ffb4"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="dcv-gauge-val">
+            <div class="dcv-gauge-num"><span id="dcvScoreNum">0</span><i>%</i></div>
+            <div class="dcv-gauge-lab">Match Score</div>
+          </div>
+        </div>
+        <div class="dcv-factors" id="dcvFactors"></div>
+      </div>
+
+      <!-- CTA -->
+      <div class="dcv-cta">
+        <div class="dcv-cta-txt">
+          <b>This one's live &amp; real.</b>
+          <span>Paste a job description, get your tailored CV, score and cover letter.</span>
+        </div>
+        <a class="dcv-btn" href="https://dream-cvcom-production.up.railway.app" target="_blank" rel="noopener">Try it live <span class="ar">→</span></a>
+      </div>
+      <div class="dcv-footline">⚡ dream cv · powered by echo maik studio // ems</div>
+    </div>
+  </div>
+</div>
+
 <div class="marquee-wrapper">
   <div class="marquee-track">
     <div class="marquee-item">React Native <span class="marquee-dot"></span></div>
@@ -2379,6 +2769,180 @@
     document.addEventListener('visibilitychange', syncLive);
     syncLive();
   })();
+</script>
+
+<!-- ==================== DREAM CV (005) script — lifted verbatim ==================== -->
+<script>
+(function(){
+  /* ---- per-role data: one profile, re-crafted per job ---- */
+  var ROLES = [
+    {
+      title:'Product Designer',
+      jd:[
+        {t:'We’re hiring a ',k:false},{t:'Product Designer',k:true},{t:' to own',k:false},
+        {nl:true,t:'end-to-end ',k:false},{t:'0→1',k:true},{t:' flows and shape our',k:false},
+        {nl:true,t:'design systems',k:true},{t:'. You run ',k:false},{t:'user research',k:true},{t:',',k:false},
+        {nl:true,t:'prototype fast in ',k:false},{t:'Figma',k:true},{t:', ship weekly.',k:false}
+      ],
+      skills:['Design Systems','Prototyping','User Research','Figma','0→1','UI','Motion','Vibe Coding'],
+      match:[0,1,2,3,4],
+      score:94,
+      factors:[['Skills Match',96],['Seniority Fit',88],['Language Fit',93],['Industry Rel.',90]]
+    },
+    {
+      title:'Growth Lead',
+      jd:[
+        {t:'Seeking a ',k:false},{t:'Growth Lead',k:true},{t:' to drive',k:false},
+        {nl:true,t:'activation & ',k:false},{t:'retention',k:true},{t:'. Own the',k:false},
+        {nl:true,t:'funnels',k:true},{t:', run ',k:false},{t:'A/B testing',k:true},{t:', dig into',k:false},
+        {nl:true,t:'data with ',k:false},{t:'SQL',k:true},{t:' across the ',k:false},{t:'lifecycle',k:true},{t:'.',k:false}
+      ],
+      skills:['Retention','Funnels','A/B Testing','SQL','Lifecycle','Analytics','Experiments','Vibe Coding'],
+      match:[0,1,2,3,4],
+      score:87,
+      factors:[['Skills Match',90],['Seniority Fit',86],['Language Fit',88],['Industry Rel.',83]]
+    },
+    {
+      title:'Frontend Engineer',
+      jd:[
+        {t:'Hiring a ',k:false},{t:'Frontend Engineer',k:true},{t:' fluent in',k:false},
+        {nl:true,t:'React',k:true},{t:' + ',k:false},{t:'TypeScript',k:true},{t:'. You care about',k:false},
+        {nl:true,t:'accessibility',k:true},{t:', ',k:false},{t:'performance',k:true},{t:', and',k:false},
+        {nl:true,t:'design systems',k:true},{t:' at scale.',k:false}
+      ],
+      skills:['React','TypeScript','Accessibility','Performance','Design Systems','Next.js','CSS','Vibe Coding'],
+      match:[0,1,2,3,4],
+      score:82,
+      factors:[['Skills Match',85],['Seniority Fit',80],['Language Fit',86],['Industry Rel.',78]]
+    }
+  ];
+
+  var overlay=document.getElementById('dcvOverlay');
+  var stage=document.getElementById('dcvStage');
+  var jdEl=document.getElementById('dcvJd');
+  var skillsEl=document.getElementById('dcvSkills');
+  var facEl=document.getElementById('dcvFactors');
+  var arc=document.getElementById('dcvArc');
+  var scoreNum=document.getElementById('dcvScoreNum');
+  var targetLab=document.getElementById('dcvTargetLab');
+  var chips=[].slice.call(document.querySelectorAll('.dcv-chip'));
+  var secs=[].slice.call(document.querySelectorAll('.dcv-doc-sec'));
+  var timers=[],countTimer=null,current=-1,lastFocus=null;
+
+  function clearTimers(){timers.forEach(clearTimeout);timers=[];if(countTimer){clearInterval(countTimer);countTimer=null;}}
+  function after(ms,fn){timers.push(setTimeout(fn,ms));}
+
+  /* build JD lines with keyword spans */
+  function buildJd(role){
+    jdEl.innerHTML='';
+    var line=document.createElement('div');line.className='dcv-jd-line';
+    var lines=[line];
+    role.jd.forEach(function(p){
+      if(p.nl){line=document.createElement('div');line.className='dcv-jd-line';lines.push(line);}
+      var s=document.createElement('span');
+      s.textContent=p.t;
+      if(p.k){s.className='kw';}
+      line.appendChild(s);
+    });
+    lines.forEach(function(l){jdEl.appendChild(l);});
+    return lines;
+  }
+
+  function countUp(target){
+    var v=0;scoreNum.textContent='0';
+    var step=Math.max(1,Math.round(target/34));
+    countTimer=setInterval(function(){
+      v+=step;if(v>=target){v=target;clearInterval(countTimer);countTimer=null;}
+      scoreNum.textContent=v;
+    },26);
+  }
+
+  function run(idx){
+    clearTimers();
+    current=idx;
+    var role=ROLES[idx];
+    chips.forEach(function(c,i){c.classList.toggle('active',i===idx);});
+    targetLab.textContent='Summary — '+role.title;
+    stage.classList.remove('running');
+
+    /* reset */
+    var lines=buildJd(role);
+    var kws=[].slice.call(jdEl.querySelectorAll('.kw'));
+    secs.forEach(function(s){s.classList.remove('built');});
+    arc.style.strokeDashoffset=100;
+    scoreNum.textContent='0';
+    facEl.innerHTML='';
+    var facBars=role.factors.map(function(f){
+      var row=document.createElement('div');row.className='dcv-fac';
+      row.innerHTML='<div class="dcv-fac-lab">'+f[0]+'</div><div class="dcv-bar"><div class="dcv-bar-fill"></div></div><div class="dcv-fac-num">'+f[1]+'</div>';
+      facEl.appendChild(row);
+      return row.querySelector('.dcv-bar-fill');
+    });
+    skillsEl.innerHTML='';
+    var skEls=role.skills.map(function(name,i){
+      var el=document.createElement('span');el.className='dcv-sk';el.textContent=name;
+      skillsEl.appendChild(el);return el;
+    });
+
+    /* --- timeline --- */
+    // 1. JD lines type in
+    lines.forEach(function(l,i){after(140+i*160,function(){l.classList.add('show');});});
+    var jdDone=140+lines.length*160;
+
+    // 2. keywords light up (extraction)
+    after(jdDone+80,function(){stage.classList.add('running');});
+    kws.forEach(function(k,i){after(jdDone+150+i*130,function(){k.classList.add('lit');});});
+    var kwDone=jdDone+150+kws.length*130;
+
+    // 3. CV sections build
+    secs.forEach(function(s,i){after(kwDone+120+i*260,function(){s.classList.add('built');});});
+    var secDone=kwDone+120+secs.length*260;
+
+    // 4. matched skills glow
+    role.match.forEach(function(mi,i){after(secDone+120+i*120,function(){if(skEls[mi])skEls[mi].classList.add('match');});});
+    var skDone=secDone+120+role.match.length*120;
+
+    // 5. score comes alive
+    after(skDone+150,function(){
+      arc.style.strokeDashoffset=100-role.score;
+      countUp(role.score);
+      facBars.forEach(function(b,i){after(i*110,function(){b.style.width=role.factors[i][1]+'%';});});
+    });
+    // stop the running shimmer once settled
+    after(skDone+1800,function(){stage.classList.remove('running');});
+  }
+
+  /* open / close */
+  function open(){
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.classList.add('dcv-locked');
+    lastFocus=document.activeElement;
+    document.getElementById('dcvClose').focus();
+    run(current<0?0:current);
+  }
+  function close(){
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    document.body.classList.remove('dcv-locked');
+    clearTimers();
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();
+  }
+
+  chips.forEach(function(c){c.addEventListener('click',function(){run(+c.dataset.role);});});
+
+  var trigger=document.querySelector('[data-open-dreamcv]');
+  if(trigger){
+    trigger.addEventListener('click',open);
+    trigger.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
+  }
+  document.getElementById('dcvClose').addEventListener('click',close);
+  overlay.addEventListener('click',function(e){if(e.target===overlay)close();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&overlay.classList.contains('open'))close();});
+
+  // expose for wiring into your own row handler if needed
+  window.openDreamCV=open;
+})();
 </script>
 </body>
 </html>
