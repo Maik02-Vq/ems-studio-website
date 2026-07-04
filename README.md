@@ -163,6 +163,11 @@ Rebrand to **Echo Maik Studio** + a unified project-row colour system.
 - Opens on row click, closes on ✕ / backdrop / Escape, locks body scroll; only change to the lift was `z-index 900 → 1000` to match the other modals; `≤600px` collapses to a single column
 - "Try it live" → the real app on Railway. The design reference `_dream-cv-modal.html` is **git-ignored** — never deployed
 
+### ⚡ Smoothness pass — cursor + graffiti hero
+- **Custom cursor** now positions via `transform: translate3d()` in a single `requestAnimationFrame` loop (no more per-frame `left/top` → no layout/reflow), with `will-change: transform` and the `transform` transition dropped so per-frame writes aren't fought. Dot tracks 1:1, ring trails with a lerp (`0.12 → 0.18`, a touch snappier) — and it frees the main thread, which helps the graffiti too
+- **Graffiti — no more scroll-back flash**: animations are now always applied and toggled via `animation-play-state` (running ⇄ paused) instead of being added/removed with `.is-live`. Scrolling away **freezes** the current frame; scrolling back **resumes** it — no restart, no "full-EMS flash then redraw". Reduced-motion still falls back to a static full EMS
+- **Graffiti — less jank**: the draw reveal animates `transform: scaleX()` from the left edge instead of the clip rect's `width`, removing per-frame layout on the multi-layer EMS group; `will-change: transform` isolates the graffiti + letters onto their own compositor layers
+
 ---
 
 ## Asset files (repo root)
