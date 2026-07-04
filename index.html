@@ -185,12 +185,16 @@
   @keyframes emsSmoke1 { 0%,100%{transform:translate(0,0);opacity:.12;} 50%{transform:translate(36px,-14px);opacity:.20;} }
   @keyframes emsSmoke2 { 0%,100%{transform:translate(0,0);opacity:.08;} 50%{transform:translate(-30px,-18px);opacity:.15;} }
   @keyframes emsGleam  { 0%,100%{opacity:0;} 50%{opacity:.45;} }
-  @keyframes emsDraw   { from{width:0;} to{width:680px;} }                     /* spray L→R, then restart from zero */
+  @keyframes emsDraw   { from{transform:scaleX(0);} to{transform:scaleX(1);} }  /* spray L→R via transform — composited, no per-frame layout */
   @keyframes emsCanMove{ 0%{transform:translateX(0);opacity:0;} 3%{opacity:1;} 95%{transform:translateX(646px);opacity:1;} 100%{transform:translateX(680px);opacity:0;} }
   @keyframes emsSprayFlicker { 0%,100%{opacity:.55;} 50%{opacity:1;} }
 
   .hero-graffiti .emsS1, .hero-graffiti .emsS2 { transform-origin: center; }
   .hero-graffiti .emsCan { opacity: 0; }                                       /* hidden until the can animation runs */
+  /* reveal grows via scaleX from the left edge; isolate layers so the moving clip stays smooth */
+  .hero-graffiti { will-change: transform; }
+  .hero-graffiti .emsWipeRect { transform-box: fill-box; transform-origin: left center; }
+  .hero-graffiti .emsArt { will-change: transform; }
 
   .hero-graffiti .emsWipeRect { animation: emsDraw 7s linear infinite; }
   .hero-graffiti .emsCan      { animation: emsCanMove 7s linear infinite; will-change: transform; }
